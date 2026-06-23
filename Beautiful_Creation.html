@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Beautiful Creation - Interactive Slideshow</title>
+    <style>
+        :root {
+            --nav-height: 80px;
+            /* Highlight Palette: Soft Pastels */
+            --hl-god: #F48FB1; --hl-light: #FFF59D; --hl-dark: #B39DDB;
+            --hl-day: #BBDEFB; --hl-night: #CFD8DC; --hl-morning: #C8E6C9;
+            --hl-evening: #FFCCBC; --hl-land: #D7CCC8; --hl-water: #B2EBF2;
+            --hl-tree: #C8E6C9; --hl-fruit: #F8BBD0; --hl-seed: #DCEDC8;
+            --hl-seas: #B3E5FC; --hl-fish: #81D4FA; --hl-bird: #CE93D8;
+            --hl-creature: #FFCC80; --hl-wild: #BCAAA4; --hl-kinds: #E1BEE7;
+            --hl-blessed: #FFF9C4; --hl-image: #F8BBD0; --hl-rule: #C8E6C9;
+            --hl-rest: #E1BEE7; --hl-made: #FFF9C4; --hl-holy: #BBDEFB;
+            --hl-people: #FFCC80;
+        }
+
+        body, html { margin: 0; padding: 0; height: 100%; overflow: hidden; background: #000; color: #fff; font-family: 'Segoe UI', Tahoma, sans-serif; }
+        #slides-container { height: calc(100vh - var(--nav-height)); position: relative; }
+        .slide { position: absolute; width: 100%; height: 100%; display: none; flex-direction: column; align-items: center; justify-content: space-between; padding: 30px; box-sizing: border-box; background-size: cover; background-position: center; transition: background-image 0.3s ease-in-out; }
+        .slide.active { display: flex; }
+        .text-section { background: rgba(0,0,0,0.75); padding: 25px; border-radius: 20px; width: 85%; max-width: 1100px; transition: all 0.5s ease; display: flex; flex-direction: column; gap: 10px; text-align: center; }
+        .main-text { order: 1; font-size: 2.5rem; font-weight: bold; }
+        .sub-text { order: 3; font-size: 1.3rem; cursor: pointer; border: 2px dashed transparent; padding: 10px; }
+        .swapped .main-text { order: 3; font-size: 1.3rem; font-weight: normal; }
+        .swapped .sub-text { order: 1; font-size: 2.5rem; font-weight: bold; }
+        .vocab-section { order: 2; margin: 15px 0; display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; }
+        .vocab-chip { background: #fff; color: #333; padding: 10px 20px; border-radius: 25px; font-weight: bold; cursor: pointer; border: 3px solid #fff; }
+        .chip-active { border-color: #000; transform: scale(1.05); }
+        #nav-bar { height: var(--nav-height); background: #111; display: flex; align-items: center; justify-content: center; position: fixed; bottom: 0; width: 100%; border-top: 1px solid #333; }
+        .nav-center { display: flex; align-items: center; gap: 25px; }
+        .nav-btn { background: #333; color: #fff; border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer; font-weight: bold; }
+        .day-shortcuts { position: absolute; right: 40px; display: flex; gap: 10px; }
+        .day-circle { width: 40px; height: 40px; border-radius: 50%; background: #222; display: flex; align-items: center; justify-content: center; cursor: pointer; border: 1px solid #555; font-weight: bold; }
+    </style>
+</head>
+<body>
+<div id="slides-container"></div>
+<div id="nav-bar">
+    <div class="nav-center">
+        <button class="nav-btn" onclick="move(-1)">PREV</button>
+        <span id="indicator">1 / 22</span>
+        <button class="nav-btn" onclick="move(1)">NEXT</button>
+    </div>
+    <div class="day-shortcuts">
+        <div class="day-circle" onclick="jump(0)">1</div>
+        <div class="day-circle" onclick="jump(6)">2</div>
+        <div class="day-circle" onclick="jump(11)">3</div>
+        <div class="day-circle" onclick="jump(17)">4</div>
+    </div>
+</div>
+<script>
+    const slideData = [
+    // --- DAY 1: LIGHT & SKY ---
+    { type: 'title', day: 1, img: 'Slideshows/Day1/day1_00_title.jpeg', title: 'God Created Light and the Sky', verse: 'In the beginning God created the heavens and the earth.', verseZh: '起初，神創造天地。', vocab: 'LIGHT 光 · DARK 暗 · DAY 晝 · NIGHT 夜 · MORNING 晨 · EVENING 晚 · GOD 神' },
+    { type: 'verse', ref: 'Genesis 1:1', img: 'Slideshows/Day1/Genesis 1:1.jpg', main: 'In the beginning, God made the whole world!', mainZh: '起初，神創造了整個世界！', sub: '"In the beginning God created the heavens and the earth."', subZh: '起初，神創造天地。', vocab: [{e:'GOD', z:'神', c:'var(--hl-god)'}] },
+    { type: 'verse', ref: 'Genesis 1:2', img: 'Slideshows/Day1/Genesis 1:2.jpg', main: 'It was dark and empty, but God was there.', mainZh: '那時是一片黑暗和空虛，但神在那裡。', sub: '"Now the earth was formless and empty, darkness was over the surface of the deep..."', subZh: '地是空虛混沌，淵面黑暗...', vocab: [{e:'DARK', z:'暗', c:'var(--hl-dark)'}, {e:'GOD', z:'神', c:'var(--hl-god)'}] },
+    { type: 'verse', ref: 'Genesis 1:3', img: 'Slideshows/Day1/Genesis 1:3.jpg', main: 'God said "Let there be light!" and light appeared!', mainZh: '神說「要有光」，光就出現了！', sub: '"And God said, \'Let there be light,\' and there was light."', subZh: '神說：「要有光」，就有了光。', vocab: [{e:'LIGHT', z:'光', c:'var(--hl-light)'}, {e:'GOD', z:'神', c:'var(--hl-god)'}] },
+    { type: 'verse', ref: 'Genesis 1:4-5', img: 'Slideshows/Day1/Genesis 1:4-5.jpg', main: 'God made the daytime and the nighttime.', mainZh: '神創造了白天和黑夜。', sub: '"God called the light \'day,\' and the darkness he called \'night.\' And there was evening, and there was morning—the first day."', subZh: '神稱光為「晝」，稱暗為「夜」。有晚上，有早晨，這是頭一日。', vocab: [{e:'DAY', z:'晝', c:'var(--hl-day)'}, {e:'NIGHT', z:'夜', c:'var(--hl-night)'}, {e:'EVENING', z:'晚', c:'var(--hl-evening)'}, {e:'MORNING', z:'晨', c:'var(--hl-morning)'}] },
+    { type: 'verse', ref: 'Genesis 1:6-8', img: 'Slideshows/Day1/Genesis 1:6-8.jpg', main: 'God made the beautiful blue sky.', mainZh: '神創造了美麗的藍天。', sub: '"God called the expanse \'sky.\' And there was evening, and there was morning—the second day."', subZh: '神稱穹蒼為「天」。有晚上，有早晨，是第二日。', vocab: [{e:'EVENING', z:'晚', c:'var(--hl-evening)'}, {e:'MORNING', z:'晨', c:'var(--hl-morning)'}, {e:'GOD', z:'神', c:'var(--hl-god)'}] },
+
+    // --- DAY 2: LAND & PLANTS ---
+    { type: 'title', day: 2, img: 'Slideshows/Day2/day2_00_title.jpeg', title: 'God Created Land and Plants', verse: 'God saw that it was good.', verseZh: '神看着是好的。', vocab: 'LAND 旱地 · WATER 水 · TREE 樹 · FRUIT 果子 · SEED 種子 · SEAS 海 · GOD 神' },
+    { type: 'verse', ref: 'Genesis 1:9', img: 'Slideshows/Day2/Genesis 1:9.jpg', main: 'God moved the water to make the dry land appear.', mainZh: '神移動了水，讓旱地顯露出來。', sub: '"And God said, \'Let the water under the sky be gathered to one place, and let dry ground appear.\'"', subZh: '神說：「天下的水要聚在一處，使旱地露出來。」', vocab: [{e:'WATER', z:'水', c:'var(--hl-water)'}, {e:'LAND', z:'地', c:'var(--hl-land)'}, {e:'GOD', z:'神', c:'var(--hl-god)'}] },
+    { type: 'verse', ref: 'Genesis 1:10', img: 'Slideshows/Day2/Genesis 1:10.jpg', main: 'God named the land and the big blue seas.', mainZh: '神給陸地和大海拔了名字。', sub: '"God called the dry ground \'land,\' and the gathered waters he called \'seas.\' And God saw that it was good."', subZh: '神稱旱地為「地」，稱水的聚處為「海」。神看着是好的。', vocab: [{e:'LAND', z:'地', c:'var(--hl-land)'}, {e:'SEAS', z:'海', c:'var(--hl-seas)'}, {e:'GOOD', z:'好', c:'var(--hl-good)'}, {e:'GOD', z:'神', c:'var(--hl-god)'}] },
+    { type: 'verse', ref: 'Genesis 1:11-12', img: 'Slideshows/Day2/Genesis 1:11-12.jpg', main: 'God made plants, trees, and yummy fruit!', mainZh: '神創造了植物、樹木和好吃的果子！', sub: '"Then God said, \'Let the land produce vegetation... trees that bear fruit with seed in it...\'"', subZh: '神說：「地要發生青草和結種子的菜蔬，並結果子的樹木...」', vocab: [{e:'TREE', z:'樹', c:'var(--hl-tree)'}, {e:'FRUIT', z:'果子', c:'var(--hl-fruit)'}, {e:'SEED', z:'種子', c:'var(--hl-seed)'}] },
+    { type: 'verse', ref: 'Genesis 1:13', img: 'Slideshows/Day2/Genesis 1:13.jpg', main: 'The land was full of life on the third day!', mainZh: '第三天，陸地充滿了生命！', sub: '"And there was evening, and there was morning—the third day."', subZh: '有晚上，有早晨，是第三日。', vocab: [{e:'GOD', z:'神', c:'var(--hl-god)'}] },
+
+    // --- DAY 3: ANIMALS ---
+    { type: 'title', day: 3, img: 'Slideshows/Day3/day3_00_title.jpeg', title: 'God Created Animals', verse: 'God created all kinds of animals.', verseZh: '神創造各樣動物。', vocab: 'FISH 魚 · BIRD 雀鳥 · CREATURE 活物 · WILD 野獸 · KINDS 各類 · BLESSED 賜福 · GOD 神' },
+    { type: 'verse', ref: 'Genesis 1:20', img: 'Slideshows/Day3/Genesis 1:20.jpg', main: 'God filled the water with fish and the sky with birds!', mainZh: '神讓水中充滿了魚，空中充滿了鳥！', sub: '"And God said, \'Let the water teem with living creatures, and let birds fly above the earth...\'"', subZh: '神說：「水要多多滋生有生命的物；要有雀鳥飛在地面以上...」', vocab: [{e:'BIRD', z:'雀鳥', c:'var(--hl-bird)'}, {e:'CREATURE', z:'物', c:'var(--hl-creature)'}] },
+    { type: 'verse', ref: 'Genesis 1:21', img: 'Slideshows/Day3/Genesis 1:21.jpg', main: 'God made giant sea creatures and every kind of bird.', mainZh: '神創造了巨大的海洋生物和各類飛鳥。', sub: '"So God created the great creatures of the sea and every winged bird according to its kind."', subZh: '神就造出大魚和水中所滋生各樣有生命的動物，各從其類；又造出各樣飛鳥，各從其類。', vocab: [{e:'FISH', z:'魚', c:'var(--hl-fish)'}, {e:'BIRD', z:'雀鳥', c:'var(--hl-bird)'}, {e:'KINDS', z:'各類', c:'var(--hl-kinds)'}] },
+    { type: 'verse', ref: 'Genesis 1:22-23', img: 'Slideshows/Day3/Genesis 1:22-23.jpg', main: 'God blessed the animals and told them to grow.', mainZh: '神賜福給動物，讓牠們茁壯成長。', sub: '"God blessed them and said, \'Be fruitful and increase in number...\' And there was evening, and there was morning—the fifth day."', subZh: '神就賜福給這一切，說：「滋生繁多...」有晚上，有早晨，是第五日。', vocab: [{e:'BLESSED', z:'賜福', c:'var(--hl-blessed)'}, {e:'GOD', z:'神', c:'var(--hl-god)'}] },
+    { type: 'verse', ref: 'Genesis 1:24-25', img: 'Slideshows/Day3/Genesis 1:24-25.jpg', main: 'God made wild animals and livestock on the land.', mainZh: '神在陸地上創造了野獸和牲畜。', sub: '"God made the wild animals according to their kinds, the livestock according to their kinds... And God saw that it was good."', subZh: '神造出野獸，各從其類；牲畜，各從其類... 神看着是好的。', vocab: [{e:'WILD', z:'野獸', c:'var(--hl-wild)'}, {e:'KINDS', z:'各類', c:'var(--hl-kinds)'}, {e:'GOD', z:'神', c:'var(--hl-god)'}] },
+
+    // --- DAY 4: PEOPLE & SABBATH ---
+    { type: 'title', day: 4, img: 'Slideshows/Day4/day4_00_title.jpeg', title: 'God Created People and the Sabbath', verse: 'I am wonderfully made.', verseZh: '我是神奇妙的創造。', vocab: 'IMAGE 形象 · RULE 治理 · MADE 造 · REST 安息 · HOLY 聖 · PEOPLE 人 · GOD 神' },
+    { type: 'verse', ref: 'Genesis 1:26', img: 'Slideshows/Day4/Genesis 1:26.jpg', main: 'God made people in His image to care for the world!', mainZh: '神按著自己的形象造人，來管理世界！', sub: '"Then God said, \'Let us make mankind in our image... and let them rule over the fish and the birds...\'"', subZh: '神說：「我們要照著我們的形像...造人，使他們管理海裡的魚、空中的鳥...」', vocab: [{e:'IMAGE', z:'形象', c:'var(--hl-image)'}, {e:'RULE', z:'治理', c:'var(--hl-rule)'}, {e:'PEOPLE', z:'人', c:'var(--hl-people)'}] },
+    { type: 'verse', ref: 'Genesis 1:27', img: 'Slideshows/Day4/Genesis 1:27.jpg', main: 'God created men and women to be like Him.', mainZh: '神創造了男人和女人，讓他們像祂一樣。', sub: '"So God created mankind in his own image, in the image of God he created them; male and female he created them."', subZh: '神就照著自己的形像造人，乃是照著他的形像造男造女。', vocab: [{e:'IMAGE', z:'形象', c:'var(--hl-image)'}, {e:'MADE', z:'造', c:'var(--hl-made)'}, {e:'GOD', z:'神', c:'var(--hl-god)'}] },
+    { type: 'verse', ref: 'Genesis 1:31', img: 'Slideshows/Day4/Genesis 1:31.jpg', main: 'God looked at everything and said it was VERY good!', mainZh: '神看著這一切，說是非常好！', sub: '"God saw all that he had made, and it was very good. And there was evening, and there was morning—the sixth day."', subZh: '神看着一切所造的都甚好。有晚上，有早晨，是第六日。', vocab: [{e:'MADE', z:'造', c:'var(--hl-made)'}, {e:'GOD', z:'神', c:'var(--hl-god)'}] },
+    { type: 'verse', ref: 'Genesis 2:1-2', img: 'Slideshows/Day4/Genesis 2:1-2.jpg', main: 'God finished His work and took a rest.', mainZh: '神完成了祂的工作，並且安息了。', sub: '"By the seventh day God had finished the work he had been doing; so on the seventh day he rested from all his work."', subZh: '到第七日，神造物的工已經完畢，就在第七日歇了他一切的工，安息了。', vocab: [{e:'REST', z:'安息', c:'var(--hl-rest)'}, {e:'GOD', z:'神', c:'var(--hl-god)'}] },
+    { type: 'verse', ref: 'Genesis 2:3', img: 'Slideshows/Day4/Genesis 2:3.jpg', main: 'God made the seventh day very special and holy.', mainZh: '神讓第七天變得非常特別和神聖。', sub: '"Then God blessed the seventh day and made it holy, because on it he rested from all the work of creating that he had done."', subZh: '神賜福給第七日，定為聖日；因為在這日，神歇了他一切創造的工，就安息了。', vocab: [{e:'HOLY', z:'聖', c:'var(--hl-holy)'}, {e:'REST', z:'安息', c:'var(--hl-rest)'}, {e:'GOD', z:'神', c:'var(--hl-god)'}] }
+];
+
+
+    let current = 0;
+    function render() {
+        const container = document.getElementById('slides-container');
+        slideData.forEach((d, i) => {
+            const div = document.createElement('div');
+            div.className = `slide ${i===0?'active':''}`;
+            div.id = `s${i}`;
+            div.style.backgroundImage = `url('${d.img}')`;
+            
+            if(d.type === 'title') {
+                div.innerHTML = `<h1 style="font-size: 4rem;">Day ${d.day} — ${d.title}</h1><div class="text-section"><div>${d.verse}</div><div>${d.verseZh}</div></div><div style="margin-top:20px; font-size: 1rem;">${d.vocab}</div>`;
+            } else {
+                div.innerHTML = `<div class="text-section main-text"><small>${d.ref} - Key Thought</small><div class="content">${d.main}<br>${d.mainZh}</div></div><div class="vocab-section">${d.vocab.map(v => `<div class="vocab-chip" onclick="toggleHl(this, '${v.e}', '${v.z}', '${v.c}')">${v.e} <span style="font-weight:normal;margin-left:8px;">${v.z}</span></div>`).join('')}</div><div class="text-section sub-text" onclick="this.parentElement.classList.toggle('swapped')"><div class="content">${d.sub}<br>${d.subZh}</div></div>`;
+            }
+            container.appendChild(div);
+        });
+    }
+
+    function move(dir) {
+        document.querySelectorAll('.slide')[current].classList.remove('active');
+        current = (current + dir + slideData.length) % slideData.length;
+        document.querySelectorAll('.slide')[current].classList.add('active');
+        document.getElementById('indicator').innerText = `${current + 1} / ${slideData.length}`;
+    }
+
+    function jump(idx) {
+        document.querySelectorAll('.slide')[current].classList.remove('active');
+        current = idx;
+        document.querySelectorAll('.slide')[current].classList.add('active');
+        document.getElementById('indicator').innerText = `${current + 1} / ${slideData.length}`;
+    }
+
+    function toggleHl(chip, eng, zh, color) {
+        chip.classList.toggle('chip-active');
+        const isActive = chip.classList.contains('chip-active');
+        chip.closest('.slide').querySelectorAll('.content').forEach(el => {
+            if(isActive) {
+                el.innerHTML = el.innerHTML.replace(new RegExp(`(${eng}|${zh})`, 'g'), `<span style="background:${color};color:#000;padding:2px;border-radius:4px">$1</span>`);
+            } else {
+                el.querySelectorAll('span').forEach(s => { if(s.style.backgroundColor.includes(color)) s.outerHTML = s.innerHTML; });
+            }
+        });
+    }
+    render();
+</script>
+</body>
+</html>
