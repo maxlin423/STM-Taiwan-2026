@@ -9,38 +9,7 @@
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
 
-  :root {
-    --nav-height: 68px;
-    /* Pastel highlight colors per vocab word */
-    --c-GOD:       #f9c8d4;
-    --c-LIGHT:     #fff3a3;
-    --c-DARK:      #c8d4f9;
-    --c-EVENING:   #f9d4c8;
-    --c-MORNING:   #c8f9e0;
-    --c-DAY:       #fde8a0;
-    --c-NIGHT:     #d4c8f9;
-    --c-LAND:      #d4f0c8;
-    --c-WATER:     #a3e4f9;
-    --c-SEAS:      #a3c8f9;
-    --c-TREE:      #b8f0c0;
-    --c-FRUIT:     #f9c8a3;
-    --c-SEED:      #e0d4a3;
-    --c-GOOD:      #f9e8a3;
-    --c-FISH:      #a3d8f9;
-    --c-BIRD:      #f9d4e8;
-    --c-CREATURE:  #d4e8f9;
-    --c-WILD:      #f0c8a3;
-    --c-KINDS:     #c8f0d4;
-    --c-LIVESTOCK: #e8d4a3;
-    --c-BLESSED:   #f9c8f0;
-    --c-IMAGE:     #f9e0c8;
-    --c-RULE:      #c8d8f9;
-    --c-MADE:      #d8f9c8;
-    --c-REST:      #e8c8f9;
-    --c-HOLY:      #fff0a3;
-    --c-PEOPLE:    #f9c8c8;
-    --c-FINISH:    #c8f9f0;
-  }
+  :root { --nav-height: 68px; }
 
   html, body {
     width: 100%; height: 100%;
@@ -48,13 +17,8 @@
     font-family: 'Nunito', 'Noto Sans TC', sans-serif;
   }
 
-  /* ── SLIDESHOW CONTAINER ── */
-  #slideshow {
-    width: 100%; height: 100%;
-    position: relative;
-  }
+  #slideshow { width: 100%; height: 100%; position: relative; }
 
-  /* ── SLIDE ── */
   .slide {
     display: none;
     position: absolute;
@@ -67,10 +31,7 @@
   .slide.active { display: flex; flex-direction: column; }
 
   /* ── TITLE SLIDE ── */
-  .slide-title {
-    justify-content: space-between;
-    padding: 32px 40px 20px;
-  }
+  .slide-title { justify-content: space-between; padding: 32px 40px 20px; }
   .title-day {
     font-family: 'Fredoka One', cursive;
     font-size: clamp(2rem, 5vw, 3.6rem);
@@ -84,21 +45,10 @@
     padding: 14px 20px;
     backdrop-filter: blur(4px);
   }
-  .title-verse-en {
-    font-size: clamp(0.95rem, 2.2vw, 1.3rem);
-    color: #fff;
-    font-weight: 700;
-    line-height: 1.4;
-  }
-  .title-verse-zh {
-    font-size: clamp(0.85rem, 2vw, 1.15rem);
-    color: #ffe;
-    font-weight: 400;
-    line-height: 1.4;
-    margin-top: 4px;
-  }
+  .title-verse-en { font-size: clamp(0.95rem,2.2vw,1.3rem); color:#fff; font-weight:700; line-height:1.4; }
+  .title-verse-zh { font-size: clamp(0.85rem,2vw,1.15rem); color:#ffe; font-weight:400; line-height:1.4; margin-top:4px; }
   .title-vocab {
-    font-size: clamp(0.7rem, 1.5vw, 0.95rem);
+    font-size: clamp(0.7rem,1.5vw,0.95rem);
     color: #fff;
     text-shadow: 1px 1px 4px rgba(0,0,0,0.8);
     font-weight: 700;
@@ -108,17 +58,9 @@
   }
 
   /* ── VERSE SLIDE ── */
-  .slide-verse {
-    flex-direction: column;
-    justify-content: space-between;
-    padding: 0;
-  }
+  .slide-verse { flex-direction: column; }
 
-  .verse-overlay {
-    position: absolute;
-    inset: 0;
-    background: rgba(0,0,0,0.38);
-  }
+  .verse-overlay { position: absolute; inset: 0; background: rgba(0,0,0,0.38); }
 
   .verse-content {
     position: relative;
@@ -126,232 +68,151 @@
     display: flex;
     flex-direction: column;
     height: 100%;
-    padding: 16px 28px 16px;
+    padding: 14px 24px 14px;
+    gap: 8px;
   }
 
-  /* MAIN TEXT (top) */
-  .main-text f{
-    flex: 0 0 auto;
-    cursor: default;
-    padding: 14px 18px;
+  /* MAIN TEXT — fixed 60% height, font auto-fits via JS */
+  .main-text {
+    flex: 0 0 60%;
+    padding: 16px 20px;
     border-radius: 14px;
     background: rgba(255,255,255,0.15);
     backdrop-filter: blur(6px);
-    transition: all 0.4s ease;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    overflow: hidden;
+    min-height: 0;
   }
   .main-text .label {
-    font-size: clamp(0.6rem, 1.3vw, 0.78rem);
+    font-size: clamp(0.58rem,1.2vw,0.75rem);
     font-weight: 800;
     color: #ffe;
     text-transform: uppercase;
     letter-spacing: 0.12em;
     margin-bottom: 6px;
     opacity: 0.85;
+    flex-shrink: 0;
   }
   .main-text .text-en {
     font-family: 'Fredoka One', cursive;
-    font-size: clamp(1.5rem, 4vw, 2.8rem);
+    font-size: 2.6rem; /* set by JS fitMainText */
     color: #fff;
     text-shadow: 1px 2px 6px rgba(0,0,0,0.5);
     line-height: 1.2;
   }
   .main-text .text-zh {
-    font-size: clamp(1rem, 2.5vw, 1.7rem);
+    font-size: 1.7rem; /* set by JS fitMainText */
     color: #ffe;
     font-weight: 700;
     line-height: 1.4;
     margin-top: 4px;
   }
 
-  /* VOCAB SECTION (middle) */
+  /* VOCAB SECTION */
   .vocab-section {
     flex: 1 1 auto;
     display: flex;
     align-items: center;
     justify-content: center;
     flex-wrap: wrap;
-    gap: 10px;
-    padding: 12px 0;
-  }
-  .vocab-item {
-    display: flex;
-    align-items: center;
-    gap: 7px;
-    cursor: pointer;
+    gap: 8px;
+    padding: 2px 0;
+    min-height: 0;
   }
   .vocab-chip {
     font-family: 'Fredoka One', cursive;
-    font-size: clamp(0.85rem, 1.8vw, 1.1rem);
+    font-size: clamp(0.82rem,1.7vw,1.05rem);
     color: #333;
     background: rgba(255,255,255,0.92);
     border-radius: 20px;
-    padding: 5px 14px;
+    padding: 5px 13px;
     border: 2px solid transparent;
     transition: all 0.2s ease;
     user-select: none;
     box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
   }
-  .vocab-chip.active {
-    border-color: #333;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.3);
-  }
-  .vocab-zh {
-    font-size: clamp(0.8rem, 1.6vw, 1rem);
-    color: #fff;
-    font-weight: 700;
-    text-shadow: 1px 1px 4px rgba(0,0,0,0.7);
-    user-select: none;
-  }
+  .vocab-chip.active { border-color: #333; box-shadow: 0 2px 10px rgba(0,0,0,0.3); }
+  .chip-en { font-family: 'Fredoka One', cursive; }
+  .chip-zh { font-family: 'Noto Sans TC', sans-serif; font-size: 0.88em; font-weight: 700; opacity: 0.75; }
 
-  /* SUB TEXT (bottom) — clickable */
+  /* SUB TEXT — scrollable */
   .sub-text {
     flex: 0 0 auto;
+    max-height: 26%;
+    overflow-y: auto;
     cursor: pointer;
-    padding: 12px 18px;
+    padding: 10px 16px;
     border-radius: 14px;
-    background: rgba(0,0,0,0.3);
+    background: rgba(0,0,0,0.38);
     backdrop-filter: blur(6px);
     border: 2px solid rgba(255,255,255,0.25);
-    transition: all 0.4s ease;
     position: relative;
+    min-height: 0;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255,255,255,0.3) transparent;
   }
-  .sub-text:hover {
-    background: rgba(0,0,0,0.42);
-    border-color: rgba(255,255,255,0.5);
-  }
+  .sub-text::-webkit-scrollbar { width: 4px; }
+  .sub-text::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.3); border-radius: 4px; }
+  .sub-text:hover { background: rgba(0,0,0,0.50); border-color: rgba(255,255,255,0.5); }
   .sub-text .tap-hint {
-    position: absolute;
-    top: 8px; right: 12px;
-    font-size: 0.65rem;
-    color: rgba(255,255,255,0.5);
-    font-weight: 700;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
+    position: absolute; top: 7px; right: 10px;
+    font-size: 0.62rem; color: rgba(255,255,255,0.45);
+    font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
   }
   .sub-text .label {
-    font-size: clamp(0.6rem, 1.3vw, 0.78rem);
-    font-weight: 800;
-    color: #ffd;
-    text-transform: uppercase;
-    letter-spacing: 0.12em;
-    margin-bottom: 5px;
-    opacity: 0.75;
+    font-size: clamp(0.58rem,1.2vw,0.75rem);
+    font-weight: 800; color: #ffd;
+    text-transform: uppercase; letter-spacing: 0.12em;
+    margin-bottom: 4px; opacity: 0.75;
   }
-  .sub-text .text-en {
-    font-size: clamp(0.85rem, 1.9vw, 1.2rem);
-    color: #fff;
-    font-weight: 700;
-    line-height: 1.45;
-  }
-  .sub-text .text-zh {
-    font-size: clamp(0.78rem, 1.7vw, 1.05rem);
-    color: #ffe;
-    font-weight: 400;
-    line-height: 1.45;
-    margin-top: 3px;
-  }
+  .sub-text .text-en { font-size: clamp(0.82rem,1.8vw,1.15rem); color:#fff; font-weight:700; line-height:1.45; }
+  .sub-text .text-zh { font-size: clamp(0.75rem,1.6vw,1rem); color:#ffe; font-weight:400; line-height:1.45; margin-top:3px; }
 
-  /* SWAPPED STATE */
-  .slide-verse.swapped .main-text {
-    background: rgba(0,0,0,0.3);
-    backdrop-filter: blur(6px);
-    border: 2px solid rgba(255,255,255,0.25);
-  }
-  .slide-verse.swapped .main-text .text-en {
-    font-family: 'Nunito', sans-serif;
-    font-size: clamp(0.85rem, 1.9vw, 1.2rem);
-    font-weight: 700;
-  }
-  .slide-verse.swapped .main-text .text-zh {
-    font-size: clamp(0.78rem, 1.7vw, 1.05rem);
-    font-weight: 400;
-  }
-  .slide-verse.swapped .sub-text {
-    background: rgba(255,255,255,0.15);
-    backdrop-filter: blur(6px);
-    border: 2px solid transparent;
-    cursor: pointer;
-  }
-  .slide-verse.swapped .sub-text .text-en {
-    font-family: 'Fredoka One', cursive;
-    font-size: clamp(1.5rem, 4vw, 2.8rem);
-    text-shadow: 1px 2px 6px rgba(0,0,0,0.5);
-    line-height: 1.2;
-    font-weight: 400;
-  }
-  .slide-verse.swapped .sub-text .text-zh {
-    font-size: clamp(1rem, 2.5vw, 1.7rem);
-    font-weight: 700;
-  }
+  /* HIGHLIGHTS */
+  .hl { border-radius: 3px; padding: 0 1px; transition: background 0.2s; }
 
-  /* HIGHLIGHT SPANS */
-  .hl { border-radius: 4px; padding: 0 2px; transition: background 0.2s; }
-
-  /* ── NAVIGATION BAR ── */
+  /* ── NAV BAR ── */
   #nav-bar {
-    position: fixed;
-    bottom: 0; left: 0; right: 0;
+    position: fixed; bottom:0; left:0; right:0;
     height: var(--nav-height);
     background: rgba(20,20,30,0.92);
     backdrop-filter: blur(10px);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 0 16px;
-    z-index: 100;
-    gap: 0;
+    display: flex; align-items: center; justify-content: center;
+    padding: 0 16px; z-index: 100;
   }
-
-  /* Prev/Next group — centered */
   .nav-center {
-    display: flex;
-    align-items: center;
-    gap: 14px;
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
+    display: flex; align-items: center; gap: 14px;
+    position: absolute; left: 50%; transform: translateX(-50%);
   }
   .nav-btn {
     font-family: 'Fredoka One', cursive;
-    font-size: 1rem;
-    color: #fff;
+    font-size: 1rem; color: #fff;
     background: rgba(255,255,255,0.15);
-    border: none;
-    border-radius: 10px;
-    padding: 8px 22px;
-    cursor: pointer;
-    transition: background 0.2s;
-    user-select: none;
+    border: none; border-radius: 10px;
+    padding: 8px 22px; cursor: pointer;
+    transition: background 0.2s; user-select: none;
   }
   .nav-btn:hover { background: rgba(255,255,255,0.28); }
   .nav-btn:disabled { opacity: 0.3; cursor: default; }
   #page-indicator {
     font-family: 'Nunito', sans-serif;
-    font-size: 0.85rem;
-    color: rgba(255,255,255,0.7);
-    font-weight: 700;
-    min-width: 52px;
-    text-align: center;
+    font-size: 0.85rem; color: rgba(255,255,255,0.7);
+    font-weight: 700; min-width: 52px; text-align: center;
   }
-
-  /* Day shortcut buttons — right aligned */
-  .nav-days {
-    position: absolute;
-    right: 16px;
-    display: flex;
-    gap: 8px;
-    align-items: center;
-  }
+  .nav-days { position: absolute; right: 16px; display: flex; gap: 8px; align-items: center; }
   .day-btn {
     font-family: 'Fredoka One', cursive;
-    font-size: 0.95rem;
-    color: #fff;
+    font-size: 0.95rem; color: #fff;
     background: rgba(255,255,255,0.15);
     border: 2px solid rgba(255,255,255,0.25);
-    border-radius: 50%;
-    width: 36px; height: 36px;
-    cursor: pointer;
-    transition: all 0.2s;
+    border-radius: 50%; width: 36px; height: 36px;
+    cursor: pointer; transition: all 0.2s;
     display: flex; align-items: center; justify-content: center;
     user-select: none;
   }
@@ -365,9 +226,9 @@
 
 <div id="nav-bar">
   <div class="nav-center">
-    <button class="nav-btn" id="btn-prev">← Prev</button>
+    <button class="nav-btn" id="btn-prev">&#8592; Prev</button>
     <span id="page-indicator">1 / 22</span>
-    <button class="nav-btn" id="btn-next">Next →</button>
+    <button class="nav-btn" id="btn-next">Next &#8594;</button>
   </div>
   <div class="nav-days">
     <button class="day-btn" onclick="goToDay(0)">1</button>
@@ -379,7 +240,7 @@
 
 <script>
 // ─────────────────────────────────────────────
-// DATA
+// VOCAB DATA
 // ─────────────────────────────────────────────
 const VOCAB_COLORS = {
   GOD:'#f9c8d4', LIGHT:'#fff3a3', DARK:'#c8d4f9', EVENING:'#f9d4c8',
@@ -391,7 +252,6 @@ const VOCAB_COLORS = {
   IMAGE:'#f9e0c8', RULE:'#c8d8f9', MADE:'#d8f9c8', REST:'#e8c8f9',
   HOLY:'#fff0a3', PEOPLE:'#f9c8c8', FINISH:'#c8f9f0'
 };
-
 const VOCAB_ZH = {
   GOD:'神', LIGHT:'光', DARK:'暗', EVENING:'晚上', MORNING:'早晨',
   DAY:'晝', NIGHT:'夜', LAND:'旱地', WATER:'水', SEAS:'海',
@@ -399,13 +259,16 @@ const VOCAB_ZH = {
   FISH:'魚', BIRD:'雀鳥', CREATURE:'活物', WILD:'野獸',
   KINDS:'各類', LIVESTOCK:'牲畜', BLESSED:'賜福',
   IMAGE:'形象', RULE:'治理', MADE:'造', REST:'安息',
-  HOLY:'聖', PEOPLE:'人', FINISH:'完了'
+  HOLY:'聖', PEOPLE:'人', FINISH:'完畢'
 };
 
+// ─────────────────────────────────────────────
+// SLIDE DATA
+// ─────────────────────────────────────────────
 const days = [
   {
     titleSlide: {
-      image: 'Slideshows/Day1/day1_00_title.jpeg',
+      image: 'Slideshows/Day1/day1_01_title.jpeg',
       title: 'God Created Light and the Sky',
       verseEn: '"In the beginning God created the heavens and the earth." (Genesis 1:1)',
       verseZh: '起初，神創造天地。（創世記 1:1）',
@@ -426,8 +289,8 @@ const days = [
         image: 'Slideshows/Day1/Genesis_1-2.jpg',
         keyEn: 'In the beginning, it was dark.',
         keyZh: '起初，一片黑暗。',
-        verseEn: 'The earth had no shape. Darkness was over the deep waters.',
-        verseZh: '地是空虛混沌，淵面黑暗。',
+        verseEn: 'The earth was without form and void, and darkness was over the face of the deep. And the Spirit of God was hovering over the face of the waters.',
+        verseZh: '地是空虛混沌，淵面黑暗；神的靈運行在水面上。',
         vocab: ['DARK']
       },
       {
@@ -435,7 +298,7 @@ const days = [
         image: 'Slideshows/Day1/Genesis_1-3.jpg',
         keyEn: 'God made light!',
         keyZh: '神造了光！',
-        verseEn: 'God said, "Let there be light," and there was light.',
+        verseEn: 'And God said, "Let there be light," and there was light.',
         verseZh: '神說，要有光，就有了光。',
         vocab: ['LIGHT']
       },
@@ -444,8 +307,8 @@ const days = [
         image: 'Slideshows/Day1/Genesis_1-4-5.jpg',
         keyEn: 'God made day and night.',
         keyZh: '神造了白晝和黑夜。',
-        verseEn: 'God separated the light from the darkness. He called the light "day" and the darkness "night."',
-        verseZh: '神將光暗分開。神稱光為晝，稱暗為夜。',
+        verseEn: 'God saw that the light was good, and he separated the light from the darkness. God called the light Day, and the darkness he called Night. And there was evening and there was morning, the first day.',
+        verseZh: '神看光是好的，就把光暗分開了。神稱光為晝，稱暗為夜。有晚上，有早晨，這是頭一日。',
         vocab: ['DAY','NIGHT','EVENING','MORNING']
       },
       {
@@ -453,8 +316,8 @@ const days = [
         image: 'Slideshows/Day1/Genesis_1-6-8.jpg',
         keyEn: 'God made the sky.',
         keyZh: '神造了天空。',
-        verseEn: 'God made the sky to separate the waters above from the waters below.',
-        verseZh: '神造出穹蒼，將水分為上下。',
+        verseEn: 'And God said, "Let there be an expanse in the midst of the waters, and let it separate the waters from the waters." And God made the expanse and separated the waters that were under the expanse from the waters that were above the expanse. And it was so. And God called the expanse Heaven. And there was evening and there was morning, the second day.',
+        verseZh: '神說，諸水之間要有穹蒼，將水分為上下。神就造出穹蒼，將穹蒼以下的水，和穹蒼以上的水分開了，事就這樣成了。神稱穹蒼為天。有晚上，有早晨，是第二日。',
         vocab: ['EVENING','MORNING']
       }
     ]
@@ -473,8 +336,8 @@ const days = [
         image: 'Slideshows/Day2/Genesis_1-9.jpeg',
         keyEn: 'God made land and seas.',
         keyZh: '神造了旱地和海。',
-        verseEn: 'God said, "Let the water gather, and let dry land appear."',
-        verseZh: '神說，天下的水要聚在一處，使旱地露出來。',
+        verseEn: 'And God said, "Let the waters under the heavens be gathered together into one place, and let the dry land appear." And it was so.',
+        verseZh: '神說，天下的水要聚在一處，使旱地露出來，事就這樣成了。',
         vocab: ['LAND','WATER','SEAS']
       },
       {
@@ -482,7 +345,7 @@ const days = [
         image: 'Slideshows/Day2/Genesis_1-10.jpeg',
         keyEn: 'God saw that it was good.',
         keyZh: '神看著是好的。',
-        verseEn: 'God called the dry land "earth" and the gathered waters "seas." God saw that it was good.',
+        verseEn: 'God called the dry land Earth, and the waters that were gathered together he called Seas. And God saw that it was good.',
         verseZh: '神稱旱地為地，稱水的聚處為海。神看著是好的。',
         vocab: ['LAND','SEAS','GOOD']
       },
@@ -491,8 +354,8 @@ const days = [
         image: 'Slideshows/Day2/Genesis_1-11-12.jpeg',
         keyEn: 'God made plants and trees.',
         keyZh: '神造了植物和樹木。',
-        verseEn: 'God said, "Let the land produce plants, trees with fruit and seed."',
-        verseZh: '神說，地要生出青草和結果子的樹木，各從其類。',
+        verseEn: 'And God said, "Let the earth sprout vegetation, plants yielding seed, and fruit trees bearing fruit in which is their seed, each according to its kind, on the earth." And it was so. The earth brought forth vegetation, plants yielding seed according to their own kinds, and trees bearing fruit in which is their seed, each according to its kind. And God saw that it was good.',
+        verseZh: '神說，地要生出青草和結種子的蔬菜，並結果子的樹木，各從其類，果子都包著核，在地上，事就這樣成了。於是地生出了青草和結種子的蔬菜，各從其類，並結果子的樹木，各從其類，果子都包著核。神看著是好的。',
         vocab: ['TREE','FRUIT','SEED']
       },
       {
@@ -500,8 +363,8 @@ const days = [
         image: 'Slideshows/Day2/Genesis_1-13.jpeg',
         keyEn: 'Evening and morning — the third day.',
         keyZh: '有晚上有早晨，是第三日。',
-        verseEn: 'There was evening and there was morning — the third day.',
-        verseZh: '有晚上有早晨，是第三日。',
+        verseEn: 'And there was evening and there was morning, the third day.',
+        verseZh: '有晚上，有早晨，是第三日。',
         vocab: ['GOOD']
       }
     ]
@@ -520,8 +383,8 @@ const days = [
         image: 'Slideshows/Day3/Genesis_1-20.jpeg',
         keyEn: 'God made fish and birds.',
         keyZh: '神造了魚和鳥。',
-        verseEn: 'God said, "Let the water be filled with living creatures, and let birds fly above the earth."',
-        verseZh: '神說，水要多多滋生有生命的物，要有雀鳥飛在地面以上。',
+        verseEn: 'And God said, "Let the waters swarm with swarms of living creatures, and let birds fly above the earth across the expanse of the heavens."',
+        verseZh: '神說，水要多多滋生有生命的物，要有雀鳥飛在地面以上，天空之中。',
         vocab: ['FISH','BIRD','CREATURE']
       },
       {
@@ -529,8 +392,8 @@ const days = [
         image: 'Slideshows/Day3/Genesis_1-21.jpeg',
         keyEn: 'God created all kinds of creatures.',
         keyZh: '神造出各樣的活物。',
-        verseEn: 'God created the great sea creatures and every living thing in the water, and every winged bird. God saw that it was good.',
-        verseZh: '神造出大魚和水中各樣的活物，並各樣飛鳥，神看著是好的。',
+        verseEn: 'So God created the great sea creatures and every living creature that moves, with which the waters swarm, according to their kinds, and every winged bird according to its kind. And God saw that it was good.',
+        verseZh: '神就造出大魚和水中所滋生各樣有生命的動物，各從其類，又造出各樣飛鳥，各從其類。神看著是好的。',
         vocab: ['FISH','BIRD','CREATURE','KINDS']
       },
       {
@@ -538,8 +401,8 @@ const days = [
         image: 'Slideshows/Day3/Genesis_1-22-23.jpeg',
         keyEn: 'God blessed the animals.',
         keyZh: '神賜福給動物。',
-        verseEn: 'God blessed them and said, "Be fruitful and multiply and fill the waters and the earth."',
-        verseZh: '神賜福給這一切，說，滋生繁多，充滿海中的水，雀鳥也要多生在地上。',
+        verseEn: 'And God blessed them, saying, "Be fruitful and multiply and fill the waters in the seas, and let birds multiply on the earth." And there was evening and there was morning, the fifth day.',
+        verseZh: '神賜福給這一切，說，滋生繁多，充滿海中的水，雀鳥也要多生在地上。有晚上，有早晨，是第五日。',
         vocab: ['KINDS','BLESSED']
       },
       {
@@ -547,8 +410,8 @@ const days = [
         image: 'Slideshows/Day3/Genesis_1-24-25.jpeg',
         keyEn: 'God made land animals.',
         keyZh: '神造了地上的動物。',
-        verseEn: 'God said, "Let the land produce living creatures — livestock, wild animals, and creatures that move along the ground." God saw that it was good.',
-        verseZh: '神說，地要生出活物來，各從其類，牲畜、昆蟲、野獸，各從其類。神看著是好的。',
+        verseEn: 'And God said, "Let the earth bring forth living creatures according to their kinds — livestock and creeping things and beasts of the earth according to their kinds." And it was so. And God made the beasts of the earth according to their kinds and the livestock according to their kinds, and everything that creeps on the ground according to its kind. And God saw that it was good.',
+        verseZh: '神說，地要生出活物來，各從其類，牲畜、昆蟲、野獸，各從其類。事就這樣成了。於是神造出野獸，各從其類，牲畜，各從其類，地上一切昆蟲，各從其類。神看著是好的。',
         vocab: ['WILD','KINDS','LIVESTOCK']
       }
     ]
@@ -567,8 +430,8 @@ const days = [
         image: 'Slideshows/Day4/Genesis_1-26-27.jpeg',
         keyEn: 'God made people in His image.',
         keyZh: '神按自己的形象造人。',
-        verseEn: 'God said, "Let us make people in our image." So God created people in His own image.',
-        verseZh: '神說，我們要照著我們的形象造人。神就照著自己的形象造人。',
+        verseEn: 'Then God said, "Let us make man in our image, after our likeness. And let them have dominion over the fish of the sea and over the birds of the heavens and over the livestock and over all the earth and over every creeping thing that creeps on the earth." So God created man in his own image, in the image of God he created him; male and female he created them.',
+        verseZh: '神說，我們要照著我們的形象，按著我們的樣式造人，使他們管理海裡的魚、空中的鳥、地上的牲畜，和全地，並地上所爬的一切昆蟲。神就照著自己的形象造人，乃是照著他的形象造男造女。',
         vocab: ['IMAGE','MADE','PEOPLE']
       },
       {
@@ -576,8 +439,8 @@ const days = [
         image: 'Slideshows/Day4/Genesis_1-28.jpeg',
         keyEn: 'God told people to rule and care.',
         keyZh: '神讓人治理和照顧世界。',
-        verseEn: 'God blessed them and said, "Rule over the fish, the birds, and every living creature."',
-        verseZh: '神賜福給他們，說，要治理這地，也要管理海中的魚、空中的鳥。',
+        verseEn: 'And God blessed them. And God said to them, "Be fruitful and multiply and fill the earth and subdue it, and have dominion over the fish of the sea and over the birds of the heavens and over every living thing that moves on the earth."',
+        verseZh: '神就賜福給他們，又對他們說，要生養眾多，遍滿地面，治理這地，也要管理海裡的魚、空中的鳥，和地上各樣行動的活物。',
         vocab: ['RULE','PEOPLE']
       },
       {
@@ -585,8 +448,8 @@ const days = [
         image: 'Slideshows/Day4/Genesis_1-29-31.jpeg',
         keyEn: 'God provided food for everyone.',
         keyZh: '神為眾人預備了食物。',
-        verseEn: 'God said, "I give you every plant and fruit for food." God saw everything He made — it was very good.',
-        verseZh: '神說，我將各樣蔬菜和果子給你們作食物。神看著一切所造的都甚好。',
+        verseEn: 'And God said, "Behold, I have given you every plant yielding seed that is on the face of all the earth, and every tree with seed in its fruit. You shall have them for food. And to every beast of the earth and to every bird of the heavens and to everything that creeps on the earth, everything that has the breath of life, I have given every green plant for food." And it was so. And God saw everything that he had made, and behold, it was very good. And there was evening and there was morning, the sixth day.',
+        verseZh: '神說，看哪，我將遍地一切結種子的蔬菜，和一切樹上所結有核的果子，全賜給你們作食物。至於地上的走獸和空中的飛鳥，並各樣爬在地上有生命的物，我將青草賜給牠們作食物。事就這樣成了。神看著一切所造的都甚好。有晚上，有早晨，是第六日。',
         vocab: ['MADE','FINISH']
       },
       {
@@ -594,8 +457,8 @@ const days = [
         image: 'Slideshows/Day4/Genesis_2-1-2.jpeg',
         keyEn: 'God rested on the seventh day.',
         keyZh: '神在第七日安息。',
-        verseEn: 'The heavens and earth were finished. On the seventh day, God rested from all His work.',
-        verseZh: '天地萬物都造齊了。第七日神造物的工已經完畢，就安息了。',
+        verseEn: 'Thus the heavens and the earth were finished, and all the host of them. And on the seventh day God finished his work that he had done, and he rested on the seventh day from all his work that he had done.',
+        verseZh: '天地萬物都造齊了。到第七日，神造物的工已經完畢，就在第七日歇了他一切的工，安息了。',
         vocab: ['REST','FINISH']
       },
       {
@@ -603,57 +466,68 @@ const days = [
         image: 'Slideshows/Day4/Genesis_2-3.jpeg',
         keyEn: 'God made the seventh day holy.',
         keyZh: '神使第七日成為聖日。',
-        verseEn: 'God blessed the seventh day and made it holy, because on it He rested from all His work.',
-        verseZh: '神賜福給第七日，定為聖日，因為在這日神歇了一切創造的工。',
+        verseEn: 'So God blessed the seventh day and made it holy, because on it God rested from all his work that he had done in creation.',
+        verseZh: '神賜福給第七日，定為聖日，因為在這日神歇了他一切創造的工，就安息了。',
         vocab: ['REST','HOLY']
       }
     ]
   }
 ];
 
+
 // ─────────────────────────────────────────────
-// BUILD SLIDES ARRAY
-// flat list: for each day → titleSlide + verseSlides
+// BUILD FLAT SLIDES ARRAY
 // ─────────────────────────────────────────────
 const slides = [];
 const dayStartIndices = [];
-
 days.forEach((day, di) => {
   dayStartIndices.push(slides.length);
   slides.push({ type: 'title', dayIndex: di, data: day.titleSlide });
-  day.verseSlides.forEach(vs => {
-    slides.push({ type: 'verse', dayIndex: di, data: vs });
-  });
+  day.verseSlides.forEach(vs => slides.push({ type: 'verse', dayIndex: di, data: vs }));
 });
-
 const total = slides.length;
 let current = 0;
 
 // ─────────────────────────────────────────────
-// HIGHLIGHT LOGIC
+// HIGHLIGHT — substring matching
 // ─────────────────────────────────────────────
-function escapeRegex(s) {
-  return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-}
+function escapeRegex(s) { return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); }
 
 function highlightText(text, activeWords) {
   if (!activeWords || activeWords.length === 0) return text;
-  // Sort by length desc to match longer words first
-  const sorted = [...activeWords].sort((a,b) => b.length - a.length);
+  const sorted = [...activeWords].sort((a, b) => b.length - a.length);
   let result = text;
   sorted.forEach(word => {
     const color = VOCAB_COLORS[word];
     const zh = VOCAB_ZH[word];
-    // Highlight English word
-    const reEn = new RegExp(`\\b${escapeRegex(word)}\\b`, 'gi');
-    result = result.replace(reEn, m => `<span class="hl" style="background:${color}">${m}</span>`);
-    // Highlight Chinese characters
+    const reEn = new RegExp(escapeRegex(word), 'gi');
+    result = result.replace(reEn, m => '<span class="hl" style="background:' + color + '">' + m + '</span>');
     if (zh) {
       const reZh = new RegExp(escapeRegex(zh), 'g');
-      result = result.replace(reZh, m => `<span class="hl" style="background:${color}">${m}</span>`);
+      result = result.replace(reZh, m => '<span class="hl" style="background:' + color + '">' + m + '</span>');
     }
   });
   return result;
+}
+
+// ─────────────────────────────────────────────
+// AUTO-FIT FONT FOR MAIN TEXT
+// ─────────────────────────────────────────────
+function fitMainText(slideEl) {
+  const mainEl = slideEl.querySelector('.main-text');
+  if (!mainEl) return;
+  const enEl = mainEl.querySelector('.text-en');
+  const zhEl = mainEl.querySelector('.text-zh');
+  if (!enEl) return;
+  let enSize = 2.8;
+  const minSize = 0.85;
+  enEl.style.fontSize = enSize + 'rem';
+  if (zhEl) zhEl.style.fontSize = (enSize * 0.62) + 'rem';
+  while (enSize > minSize && mainEl.scrollHeight > mainEl.clientHeight) {
+    enSize = Math.round((enSize - 0.1) * 10) / 10;
+    enEl.style.fontSize = enSize + 'rem';
+    if (zhEl) zhEl.style.fontSize = (enSize * 0.62) + 'rem';
+  }
 }
 
 // ─────────────────────────────────────────────
@@ -665,19 +539,16 @@ function buildTitleSlide(s, idx) {
   const d = s.data;
   const div = document.createElement('div');
   div.className = 'slide slide-title';
-  div.style.backgroundImage = `url('${d.image}')`;
+  div.style.backgroundImage = "url('" + d.image + "')";
   div.dataset.slideIndex = idx;
-
-  const vocabStr = d.vocab.map(w => `${w} ${VOCAB_ZH[w]}`).join('  ·  ');
-
-  div.innerHTML = `
-    <div class="title-day">${d.title}</div>
-    <div class="title-verse-block">
-      <div class="title-verse-en">${d.verseEn}</div>
-      <div class="title-verse-zh">${d.verseZh}</div>
-    </div>
-    <div class="title-vocab">${vocabStr}</div>
-  `;
+  const vocabStr = d.vocab.map(w => w + ' ' + VOCAB_ZH[w]).join('  ·  ');
+  div.innerHTML =
+    '<div class="title-day">' + d.title + '</div>' +
+    '<div class="title-verse-block">' +
+      '<div class="title-verse-en">' + d.verseEn + '</div>' +
+      '<div class="title-verse-zh">' + d.verseZh + '</div>' +
+    '</div>' +
+    '<div class="title-vocab">' + vocabStr + '</div>';
   return div;
 }
 
@@ -685,145 +556,152 @@ function buildVerseSlide(s, idx) {
   const d = s.data;
   const div = document.createElement('div');
   div.className = 'slide slide-verse';
-  div.style.backgroundImage = `url('${d.image}')`;
+  div.style.backgroundImage = "url('" + d.image + "')";
   div.dataset.slideIndex = idx;
   div.dataset.swapped = 'false';
-  div.dataset.activeVocab = JSON.stringify([]);
+  div.dataset.activeVocab = '[]';
 
-  div.innerHTML = `
-    <div class="verse-overlay"></div>
-    <div class="verse-content">
-      <div class="main-text">
-        <div class="label">${d.ref} — Key Thought</div>
-        <div class="text-en key-en">${d.keyEn}</div>
-        <div class="text-zh key-zh">${d.keyZh}</div>
-      </div>
-      <div class="vocab-section">
-        ${d.vocab.map(w => `
-          <div class="vocab-item" data-word="${w}" onclick="toggleVocab(this, ${idx})">
-            <div class="vocab-chip" data-word="${w}">${w}</div>
-            <div class="vocab-zh">${VOCAB_ZH[w]}</div>
-          </div>
-        `).join('')}
-      </div>
-      <div class="sub-text" onclick="toggleSwap(${idx})">
-        <span class="tap-hint">tap to swap</span>
-        <div class="label">${d.ref} — Bible Verse</div>
-        <div class="text-en verse-en">${d.verseEn}</div>
-        <div class="text-zh verse-zh">${d.verseZh}</div>
-      </div>
-    </div>
-  `;
+  const chipsHtml = d.vocab.map(function(w) {
+    return '<div class="vocab-chip" data-word="' + w + '">' +
+      '<span class="chip-en">' + w + '</span>' +
+      '<span class="chip-zh">' + VOCAB_ZH[w] + '</span></div>';
+  }).join('');
+
+  div.innerHTML =
+    '<div class="verse-overlay"></div>' +
+    '<div class="verse-content">' +
+      '<div class="main-text">' +
+        '<div class="label">' + d.ref + ' \u2014 Key Thought</div>' +
+        '<div class="text-en key-en">' + d.keyEn + '</div>' +
+        '<div class="text-zh key-zh">' + d.keyZh + '</div>' +
+      '</div>' +
+      '<div class="vocab-section">' + chipsHtml + '</div>' +
+      '<div class="sub-text">' +
+        '<span class="tap-hint">tap to swap</span>' +
+        '<div class="label">' + d.ref + ' \u2014 Bible Verse</div>' +
+        '<div class="text-en verse-en">' + d.verseEn + '</div>' +
+        '<div class="text-zh verse-zh">' + d.verseZh + '</div>' +
+      '</div>' +
+    '</div>';
+
+  // Swap handler on sub-text only
+  div.querySelector('.sub-text').addEventListener('click', function() {
+    toggleSwap(idx);
+  });
+
+  // Chip handlers — stop propagation
+  div.querySelectorAll('.vocab-chip').forEach(function(chip) {
+    chip.addEventListener('click', function(e) {
+      e.stopPropagation();
+      toggleVocab(chip, idx);
+    });
+  });
+
   return div;
 }
 
-// Build all slides into DOM
-slides.forEach((s, idx) => {
-  const el = s.type === 'title' ? buildTitleSlide(s, idx) : buildVerseSlide(s, idx);
-  container.appendChild(el);
+slides.forEach(function(s, idx) {
+  container.appendChild(s.type === 'title' ? buildTitleSlide(s, idx) : buildVerseSlide(s, idx));
 });
 
 // ─────────────────────────────────────────────
 // VOCAB TOGGLE
 // ─────────────────────────────────────────────
-function toggleVocab(itemEl, slideIdx) {
-  const word = itemEl.dataset.word;
-  const slideEl = document.querySelector(`.slide[data-slide-index="${slideIdx}"]`);
+function toggleVocab(chipEl, slideIdx) {
+  const word = chipEl.dataset.word;
+  const slideEl = document.querySelector('.slide[data-slide-index="' + slideIdx + '"]');
   let active = JSON.parse(slideEl.dataset.activeVocab);
-
   if (active.includes(word)) {
-    active = active.filter(w => w !== word);
-    itemEl.querySelector('.vocab-chip').classList.remove('active');
+    active = active.filter(function(w) { return w !== word; });
+    chipEl.classList.remove('active');
   } else {
     active.push(word);
-    itemEl.querySelector('.vocab-chip').classList.add('active');
+    chipEl.classList.add('active');
   }
   slideEl.dataset.activeVocab = JSON.stringify(active);
   applyHighlights(slideEl, active);
 }
 
 function applyHighlights(slideEl, activeWords) {
-  const d = slides[parseInt(slideEl.dataset.slideIndex)].data;
+  const idx = parseInt(slideEl.dataset.slideIndex);
+  const d = slides[idx].data;
   const isSwapped = slideEl.dataset.swapped === 'true';
-
-  slideEl.querySelector('.key-en').innerHTML   = highlightText(d.keyEn, activeWords);
-  slideEl.querySelector('.key-zh').innerHTML   = highlightText(d.keyZh, activeWords);
-  slideEl.querySelector('.verse-en').innerHTML = highlightText(d.verseEn, activeWords);
-  slideEl.querySelector('.verse-zh').innerHTML = highlightText(d.verseZh, activeWords);
+  const mainEnEl = slideEl.querySelector('.key-en');
+  const mainZhEl = slideEl.querySelector('.key-zh');
+  const subEnEl  = slideEl.querySelector('.verse-en');
+  const subZhEl  = slideEl.querySelector('.verse-zh');
+  if (isSwapped) {
+    mainEnEl.innerHTML = highlightText(d.verseEn, activeWords);
+    mainZhEl.innerHTML = highlightText(d.verseZh, activeWords);
+    subEnEl.innerHTML  = highlightText(d.keyEn, activeWords);
+    subZhEl.innerHTML  = highlightText(d.keyZh, activeWords);
+  } else {
+    mainEnEl.innerHTML = highlightText(d.keyEn, activeWords);
+    mainZhEl.innerHTML = highlightText(d.keyZh, activeWords);
+    subEnEl.innerHTML  = highlightText(d.verseEn, activeWords);
+    subZhEl.innerHTML  = highlightText(d.verseZh, activeWords);
+  }
 }
 
 // ─────────────────────────────────────────────
 // SWAP TOGGLE
 // ─────────────────────────────────────────────
 function toggleSwap(slideIdx) {
-  const slideEl = document.querySelector(`.slide[data-slide-index="${slideIdx}"]`);
+  const slideEl = document.querySelector('.slide[data-slide-index="' + slideIdx + '"]');
   const d = slides[slideIdx].data;
   const isSwapped = slideEl.dataset.swapped === 'true';
   const newSwapped = !isSwapped;
   slideEl.dataset.swapped = newSwapped ? 'true' : 'false';
-  slideEl.classList.toggle('swapped', newSwapped);
-
+  const active = JSON.parse(slideEl.dataset.activeVocab);
   const mainLabel = slideEl.querySelector('.main-text .label');
   const subLabel  = slideEl.querySelector('.sub-text .label');
-
   if (newSwapped) {
-    // Bible verse moves to top (main), Key Thought moves to bottom (sub)
-    mainLabel.textContent = `${d.ref} — Bible Verse`;
-    subLabel.textContent  = `${d.ref} — Key Thought`;
-    slideEl.querySelector('.key-en').innerHTML   = highlightText(d.verseEn, JSON.parse(slideEl.dataset.activeVocab));
-    slideEl.querySelector('.key-zh').innerHTML   = highlightText(d.verseZh, JSON.parse(slideEl.dataset.activeVocab));
-    slideEl.querySelector('.verse-en').innerHTML = highlightText(d.keyEn, JSON.parse(slideEl.dataset.activeVocab));
-    slideEl.querySelector('.verse-zh').innerHTML = highlightText(d.keyZh, JSON.parse(slideEl.dataset.activeVocab));
+    mainLabel.textContent = d.ref + ' \u2014 Bible Verse';
+    subLabel.textContent  = d.ref + ' \u2014 Key Thought';
+    slideEl.querySelector('.key-en').innerHTML   = highlightText(d.verseEn, active);
+    slideEl.querySelector('.key-zh').innerHTML   = highlightText(d.verseZh, active);
+    slideEl.querySelector('.verse-en').innerHTML = highlightText(d.keyEn, active);
+    slideEl.querySelector('.verse-zh').innerHTML = highlightText(d.keyZh, active);
   } else {
-    mainLabel.textContent = `${d.ref} — Key Thought`;
-    subLabel.textContent  = `${d.ref} — Bible Verse`;
-    slideEl.querySelector('.key-en').innerHTML   = highlightText(d.keyEn, JSON.parse(slideEl.dataset.activeVocab));
-    slideEl.querySelector('.key-zh').innerHTML   = highlightText(d.keyZh, JSON.parse(slideEl.dataset.activeVocab));
-    slideEl.querySelector('.verse-en').innerHTML = highlightText(d.verseEn, JSON.parse(slideEl.dataset.activeVocab));
-    slideEl.querySelector('.verse-zh').innerHTML = highlightText(d.verseZh, JSON.parse(slideEl.dataset.activeVocab));
+    mainLabel.textContent = d.ref + ' \u2014 Key Thought';
+    subLabel.textContent  = d.ref + ' \u2014 Bible Verse';
+    slideEl.querySelector('.key-en').innerHTML   = highlightText(d.keyEn, active);
+    slideEl.querySelector('.key-zh').innerHTML   = highlightText(d.keyZh, active);
+    slideEl.querySelector('.verse-en').innerHTML = highlightText(d.verseEn, active);
+    slideEl.querySelector('.verse-zh').innerHTML = highlightText(d.verseZh, active);
   }
+  requestAnimationFrame(function() { fitMainText(slideEl); });
 }
 
 // ─────────────────────────────────────────────
 // NAVIGATION
 // ─────────────────────────────────────────────
 function showSlide(idx) {
-  document.querySelectorAll('.slide').forEach(el => el.classList.remove('active'));
-  document.querySelector(`.slide[data-slide-index="${idx}"]`).classList.add('active');
+  document.querySelectorAll('.slide').forEach(function(el) { el.classList.remove('active'); });
+  const slideEl = document.querySelector('.slide[data-slide-index="' + idx + '"]');
+  slideEl.classList.add('active');
   current = idx;
-
-  document.getElementById('page-indicator').textContent = `${idx + 1} / ${total}`;
+  document.getElementById('page-indicator').textContent = (idx + 1) + ' / ' + total;
   document.getElementById('btn-prev').disabled = idx === 0;
   document.getElementById('btn-next').disabled = idx === total - 1;
-
-  // Highlight current day button
   const dayBtns = document.querySelectorAll('.day-btn');
   const currentDay = slides[idx].dayIndex;
-  dayBtns.forEach((btn, i) => btn.classList.toggle('current-day', i === currentDay));
-}
-
-function goToDay(dayIdx) {
-  showSlide(dayStartIndices[dayIdx]);
-}
-
-document.getElementById('btn-prev').addEventListener('click', () => {
-  if (current > 0) showSlide(current - 1);
-});
-document.getElementById('btn-next').addEventListener('click', () => {
-  if (current < total - 1) showSlide(current + 1);
-});
-
-// Keyboard navigation
-document.addEventListener('keydown', e => {
-  if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
-    if (current < total - 1) showSlide(current + 1);
-  } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
-    if (current > 0) showSlide(current - 1);
+  dayBtns.forEach(function(btn, i) { btn.classList.toggle('current-day', i === currentDay); });
+  if (slides[idx].type === 'verse') {
+    requestAnimationFrame(function() { fitMainText(slideEl); });
   }
+}
+
+function goToDay(dayIdx) { showSlide(dayStartIndices[dayIdx]); }
+
+document.getElementById('btn-prev').addEventListener('click', function() { if (current > 0) showSlide(current - 1); });
+document.getElementById('btn-next').addEventListener('click', function() { if (current < total - 1) showSlide(current + 1); });
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'ArrowRight' || e.key === 'ArrowDown') { if (current < total - 1) showSlide(current + 1); }
+  else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') { if (current > 0) showSlide(current - 1); }
 });
 
-// Init
 showSlide(0);
 </script>
 </body>
-</html>
+</html>F
