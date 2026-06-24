@@ -24,7 +24,7 @@ const VOCAB_ZH = {
 const days = [
   {
     titleSlide: {
-      image: 'Slideshows/Day1/day1_02_title.jpeg',
+      image: 'Slideshows/Day1/day1_00_title.jpeg',
       title: 'God Created Light and the Sky',
       verseEn: '"In the beginning God created the heavens and the earth." (Genesis 1:1)',
       verseZh: '起初，神創造天地。（創世記 1:1）',
@@ -80,7 +80,7 @@ const days = [
   },
   {
     titleSlide: {
-      image: 'Slideshows/Day2/day2_02_title.jpeg',
+      image: 'Slideshows/Day2/day2_00_title.jpeg',
       title: 'God Created Land and Plants',
       verseEn: '"God saw that it was good." (Genesis 1:10)',
       verseZh: '神看著是好的。（創世記 1:10）',

@@ -297,13 +297,9 @@
 // URL ROUTING — parse grade from path e.g. /1, /2 ... /6
 // ─────────────────────────────────────────────
 function getGradeFromPath() {
-  var path = window.location.pathname;
-  // Match /1 through /6 anywhere in the path
-  var match = path.match(/\/(\d+)\/?$/);
-  if (match) {
-    var grade = parseInt(match[1]);
-    if (grade >= 1 && grade <= 6) return grade;
-  }
+  var params = new URLSearchParams(window.location.search);
+  var grade = parseInt(params.get('grade'));
+  if (!isNaN(grade) && grade >= 1 && grade <= 6) return grade;
   return 1; // default to grade 1
 }
 
