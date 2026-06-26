@@ -474,16 +474,23 @@ function applyHighlights(slideEl, activeWords) {
   var mainZhEl = slideEl.querySelector('.key-zh');
   var subEnEl  = slideEl.querySelector('.verse-en');
   var subZhEl  = slideEl.querySelector('.verse-zh');
+  // Split active words into full-highlight vs key-thought-only
+  var keyOnly = (d.keyOnlyVocab || []);
+  var allWords = activeWords;
+  var keyOnlyActive = activeWords.filter(function(w) { return keyOnly.indexOf(w) > -1; });
+  var bothActive = activeWords.filter(function(w) { return keyOnly.indexOf(w) === -1; });
   if (isSwapped) {
-    mainEnEl.innerHTML = highlightText(d.verseEn, activeWords);
-    mainZhEl.innerHTML = highlightText(d.verseZh, activeWords);
-    subEnEl.innerHTML  = highlightText(d.keyEn, activeWords);
-    subZhEl.innerHTML  = highlightText(d.keyZh, activeWords);
+    // verse text in main, key thought in sub
+    mainEnEl.innerHTML = highlightText(d.verseEn, bothActive);
+    mainZhEl.innerHTML = highlightText(d.verseZh, bothActive);
+    subEnEl.innerHTML  = highlightText(d.keyEn, allWords);
+    subZhEl.innerHTML  = highlightText(d.keyZh, allWords);
   } else {
-    mainEnEl.innerHTML = highlightText(d.keyEn, activeWords);
-    mainZhEl.innerHTML = highlightText(d.keyZh, activeWords);
-    subEnEl.innerHTML  = highlightText(d.verseEn, activeWords);
-    subZhEl.innerHTML  = highlightText(d.verseZh, activeWords);
+    // key thought in main, verse text in sub
+    mainEnEl.innerHTML = highlightText(d.keyEn, allWords);
+    mainZhEl.innerHTML = highlightText(d.keyZh, allWords);
+    subEnEl.innerHTML  = highlightText(d.verseEn, bothActive);
+    subZhEl.innerHTML  = highlightText(d.verseZh, bothActive);
   }
 }
 
