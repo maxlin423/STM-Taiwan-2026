@@ -121,7 +121,7 @@ const days = [
       title:   'God Created Light and the Sky',
       verseEn: '"In the beginning God created the heavens and the earth." (Genesis 1:1)',
       verseZh: '起初，神創造天地。（創世記 1:1）',
-      vocab:   ['GOD','HEAVEN','EARTH','LIGHT','DARK','NIGHT','ONE','FIRST']
+      vocab:   ['GOD','HEAVEN','EARTH','LIGHT','DARK','NIGHT','ONE','FIRST','WATER','SKY','SEPARATE','TWO','SECOND']
     },
     verseSlides: [
       {
@@ -153,22 +153,7 @@ const days = [
         verseZh:      '起初，神創造天地。地是空虛混沌，淵面黑暗；神的靈運行在水面上。神說：「要有光」，就有了光。神看光是好的，就把光暗分開了。神稱光為晝，稱暗為夜。有晚上，有早晨，這是頭一日。',
         vocab:        ['ONE','FIRST'],
         keyOnlyVocab: []
-      }
-    ]
-  },
-
-  // ─────────────────────────────────────────────
-  // LESSON 2
-  // ─────────────────────────────────────────────
-  {
-    titleSlide: {
-      image:   'Slideshows/Day2/day2_00_title.jpeg',
-      title:   'God Created Land and Plants',
-      verseEn: '"God saw that it was good." (Genesis 1:10)',
-      verseZh: '神看著是好的。（創世記 1:10）',
-      vocab:   ['WATER','SKY','SEPARATE','TWO','SECOND','LAND','SEAS','GROUND','PLANT','TREE','SEED','THREE','THIRD']
-    },
-    verseSlides: [
+      },
       {
         ref:          'Genesis 1:6–8',
         image:        'Slideshows/Day2/Genesis_1-9.jpeg',
@@ -188,7 +173,22 @@ const days = [
         verseZh:      '神說：「諸水之間要有穹蒼，將水分為上下。」神就造出穹蒼，將穹蒼以下的水和穹蒼以上的水分開了。事就這樣成了。神稱穹蒼為天。有晚上，有早晨，是第二日。',
         vocab:        ['TWO','SECOND'],
         keyOnlyVocab: []
-      },
+      }
+    ]
+  },
+
+  // ─────────────────────────────────────────────
+  // LESSON 2 (Day 3 — Land, Seas & Plants)
+  // ─────────────────────────────────────────────
+  {
+    titleSlide: {
+      image:   'Slideshows/Day2/day2_00_title.jpeg',
+      title:   'God Created Land and Plants',
+      verseEn: '"God saw that it was good." (Genesis 1:10)',
+      verseZh: '神看著是好的。（創世記 1:10）',
+      vocab:   ['LAND','SEAS','GROUND','PLANT','TREE','SEED','THREE','THIRD']
+    },
+    verseSlides: [
       {
         ref:          'Genesis 1:9–13',
         image:        'Slideshows/Day2/Genesis_1-10.jpeg',
