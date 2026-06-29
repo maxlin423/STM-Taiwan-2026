@@ -3,13 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Beautiful Creation — VBS 2026</title>
+<title>Beautiful Creation</title>
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700;900&family=Fredoka+One&family=Nunito:wght@400;700;800;900&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700&family=Fredoka+One&family=Nunito:wght@400;600;700&display=swap');
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
-
-  :root { --nav-height: 68px; }
 
   html, body {
     width: 100%; height: 100%;
@@ -17,558 +15,199 @@
     font-family: 'Nunito', 'Noto Sans TC', sans-serif;
   }
 
-  #slideshow { width: 100%; height: 100%; position: relative; }
-
-  .slide {
-    display: none;
-    position: absolute;
-    inset: 0;
-    bottom: var(--nav-height);
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-  }
-  .slide.active { display: flex; flex-direction: column; }
-
-  /* ── TITLE SLIDE ── */
-  .slide-title { justify-content: space-between; padding: 32px 40px 20px; }
-  .title-day {
-    font-family: 'Fredoka One', cursive;
-    font-size: clamp(2rem, 5vw, 3.6rem);
-    color: #fff;
-    text-shadow: 2px 3px 8px rgba(0,0,0,0.7);
-    line-height: 1.15;
-  }
-  .title-verse-block {
-    background: rgba(0,0,0,0.42);
-    border-radius: 14px;
-    padding: 14px 20px;
-    backdrop-filter: blur(4px);
-  }
-  .title-verse-en { font-size: clamp(0.95rem,2.2vw,1.3rem); color:#fff; font-weight:700; line-height:1.4; }
-  .title-verse-zh { font-size: clamp(0.85rem,2vw,1.15rem); color:#ffe; font-weight:400; line-height:1.4; margin-top:4px; }
-  .title-vocab {
-    font-size: clamp(0.7rem,1.5vw,0.95rem);
-    color: #fff;
-    text-shadow: 1px 1px 4px rgba(0,0,0,0.8);
-    font-weight: 700;
-    letter-spacing: 0.02em;
-    line-height: 1.7;
-    word-spacing: 0.3em;
-  }
-
-  /* ── VERSE SLIDE ── */
-  .slide-verse { flex-direction: column; }
-
-  .verse-overlay { position: absolute; inset: 0; background: rgba(0,0,0,0.38); }
-
-  .verse-content {
-    position: relative;
-    z-index: 2;
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-    padding: 14px 24px 14px;
-    gap: 8px;
-  }
-
-  /* MAIN TEXT — fixed 60% height, font auto-fits via JS */
-  .main-text {
-    flex: 0 0 60%;
-    padding: 16px 20px;
-    border-radius: 14px;
-    background: rgba(255,255,255,0.15);
-    backdrop-filter: blur(6px);
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    overflow: hidden;
-    min-height: 0;
-  }
-  .main-text .label {
-    font-size: clamp(0.58rem,1.2vw,0.75rem);
-    font-weight: 800;
-    color: #ffe;
-    text-transform: uppercase;
-    letter-spacing: 0.12em;
-    margin-bottom: 6px;
-    opacity: 0.85;
-    flex-shrink: 0;
-  }
-  .main-text .text-en {
-    font-family: 'Fredoka One', cursive;
-    font-size: 2.6rem;
-    color: #fff;
-    text-shadow: 1px 2px 6px rgba(0,0,0,0.5);
-    line-height: 1.2;
-  }
-  .main-text .text-zh {
-    font-size: 1.7rem;
-    color: #ffe;
-    font-weight: 700;
-    line-height: 1.4;
-    margin-top: 4px;
-  }
-
-  /* VOCAB SECTION */
-  .vocab-section {
-    flex: 1 1 auto;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 8px;
-    padding: 2px 0;
-    min-height: 0;
-  }
-  .vocab-chip {
-    font-family: 'Fredoka One', cursive;
-    font-size: clamp(0.82rem,1.7vw,1.05rem);
-    color: #333;
-    background: rgba(255,255,255,0.92);
-    border-radius: 20px;
-    padding: 5px 13px;
-    border: 2px solid transparent;
-    transition: all 0.2s ease;
-    user-select: none;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
-    cursor: pointer;
-    display: inline-flex;
-    align-items: center;
-    gap: 5px;
-  }
-  .vocab-chip.active { border-color: #333; box-shadow: 0 2px 10px rgba(0,0,0,0.3); }
-  .chip-en { font-family: 'Fredoka One', cursive; }
-  .chip-zh { font-family: 'Noto Sans TC', sans-serif; font-size: 0.88em; font-weight: 700; opacity: 0.75; }
-
-  /* SUB TEXT — scrollable */
-  .sub-text {
-    flex: 0 0 auto;
-    max-height: 26%;
-    overflow-y: auto;
-    cursor: pointer;
-    padding: 10px 16px;
-    border-radius: 14px;
-    background: rgba(0,0,0,0.38);
-    backdrop-filter: blur(6px);
-    border: 2px solid rgba(255,255,255,0.25);
-    position: relative;
-    min-height: 0;
-    scrollbar-width: thin;
-    scrollbar-color: rgba(255,255,255,0.3) transparent;
-  }
-  .sub-text::-webkit-scrollbar { width: 4px; }
-  .sub-text::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.3); border-radius: 4px; }
-  .sub-text:hover { background: rgba(0,0,0,0.50); border-color: rgba(255,255,255,0.5); }
-  .sub-text .tap-hint {
-    position: absolute; top: 7px; right: 10px;
-    font-size: 0.62rem; color: rgba(255,255,255,0.45);
-    font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
-  }
-  .sub-text .label {
-    font-size: clamp(0.58rem,1.2vw,0.75rem);
-    font-weight: 800; color: #ffd;
-    text-transform: uppercase; letter-spacing: 0.12em;
-    margin-bottom: 4px; opacity: 0.75;
-  }
-  .sub-text .text-en { font-size: clamp(0.82rem,1.8vw,1.15rem); color:#fff; font-weight:700; line-height:1.45; }
-  .sub-text .text-zh { font-size: clamp(0.75rem,1.6vw,1rem); color:#ffe; font-weight:400; line-height:1.45; margin-top:3px; }
-
-  /* HIGHLIGHTS */
-  .hl { border-radius: 3px; padding: 0 1px; transition: background 0.2s; }
-
-  /* ── NAV BAR ── */
-  #nav-bar {
-    position: fixed; bottom:0; left:0; right:0;
-    min-height: var(--nav-height);
-    background: rgba(20,20,30,0.92);
-    backdrop-filter: blur(10px);
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: center;
-    padding: 8px 16px;
-    z-index: 100;
-    gap: 6px;
-  }
-
-  /* Prev/Next row — full width on its own flex row */
-  .nav-center {
-    display: flex;
-    align-items: center;
-    gap: 14px;
-    order: 1;
-    flex: 1 1 100%;
-    justify-content: center;
-  }
-
-  .nav-btn {
-    font-family: 'Fredoka One', cursive;
-    font-size: 1rem; color: #fff;
-    background: rgba(255,255,255,0.15);
-    border: none; border-radius: 10px;
-    padding: 8px 22px; cursor: pointer;
-    transition: background 0.2s; user-select: none;
-  }
-  .nav-btn:hover { background: rgba(255,255,255,0.28); }
-  .nav-btn:disabled { opacity: 0.3; cursor: default; }
-  #page-indicator {
-    font-family: 'Nunito', sans-serif;
-    font-size: 0.85rem; color: rgba(255,255,255,0.7);
-    font-weight: 700; min-width: 52px; text-align: center;
-  }
-
-  /* Day shortcut buttons — second row on mobile, right side on desktop */
-  .nav-days {
-    display: flex;
-    gap: 8px;
-    align-items: center;
-    justify-content: center;
-    order: 2;
-    flex-wrap: wrap;
-  }
-  .day-btn {
-    font-family: 'Fredoka One', cursive;
-    font-size: 0.95rem; color: #fff;
-    background: rgba(255,255,255,0.15);
-    border: 2px solid rgba(255,255,255,0.25);
-    border-radius: 50%; width: 36px; height: 36px;
-    cursor: pointer; transition: all 0.2s;
-    display: flex; align-items: center; justify-content: center;
-    user-select: none; flex-shrink: 0;
-  }
-  .day-btn:hover { background: rgba(255,255,255,0.32); border-color: rgba(255,255,255,0.6); }
-  .day-btn.current-day { background: rgba(255,220,80,0.4); border-color: #ffd84f; color: #ffd84f; }
-
-  /* On wider screens: single row with days on the right */
-  @media (min-width: 520px) {
-    #nav-bar {
-      flex-wrap: nowrap;
-      min-height: var(--nav-height);
-      padding: 0 16px;
-    }
-    .nav-center {
-      flex: 0 0 auto;
-      order: 2;
-      position: absolute;
-      left: 50%;
-      transform: translateX(-50%);
-    }
-    .nav-days {
-      order: 3;
-      margin-left: auto;
-    }
-  }
-
-  /* Loading screen */
-  #loading {
+  #bg {
     position: fixed; inset: 0;
-    background: #1a1a2e;
-    display: flex; align-items: center; justify-content: center;
-    z-index: 999;
-    font-family: 'Fredoka One', cursive;
-    font-size: 1.4rem; color: #fff;
+    background: url('Slideshows/cover_page.jpg') center center / cover no-repeat;
+    z-index: 0;
+  }
+  #overlay {
+    position: fixed; inset: 0;
+    background: rgba(0,0,0,0.45);
+    z-index: 1;
+  }
+
+  #content {
+    position: relative; z-index: 2;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    height: 100%;
+    padding: 32px 24px;
+    gap: 24px;
     text-align: center;
   }
-  #loading.hidden { display: none; }
+
+  .title-en {
+    font-family: 'Fredoka One', cursive;
+    font-size: clamp(2.4rem, 7vw, 4.8rem);
+    color: #fff;
+    text-shadow: 2px 3px 12px rgba(0,0,0,0.7);
+    line-height: 1.1;
+  }
+  .title-zh {
+    font-family: 'Noto Sans TC', sans-serif;
+    font-size: clamp(1.2rem, 3.5vw, 2.2rem);
+    color: #ffe;
+    font-weight: 700;
+    text-shadow: 1px 2px 8px rgba(0,0,0,0.7);
+    margin-top: -12px;
+  }
+
+  .preface {
+    max-width: 640px;
+    background: rgba(0,0,0,0.38);
+    backdrop-filter: blur(6px);
+    border-radius: 16px;
+    padding: 20px 28px;
+    border: 1px solid rgba(255,255,255,0.2);
+  }
+  .preface-en {
+    font-size: clamp(0.92rem, 2vw, 1.15rem);
+    color: #fff;
+    font-weight: 600;
+    line-height: 1.65;
+    margin-bottom: 12px;
+  }
+  .preface-zh {
+    font-size: clamp(0.85rem, 1.8vw, 1.05rem);
+    color: #ffe;
+    font-weight: 400;
+    line-height: 1.8;
+  }
+
+  /* Version selector row */
+  .selector-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: rgba(0,0,0,0.38);
+    backdrop-filter: blur(6px);
+    border-radius: 50px;
+    padding: 10px 18px;
+    border: 1px solid rgba(255,255,255,0.25);
+  }
+  .selector-label {
+    font-family: 'Fredoka One', cursive;
+    font-size: 1rem;
+    color: rgba(255,255,255,0.85);
+    letter-spacing: 0.05em;
+    white-space: nowrap;
+  }
+  #version-select {
+    font-family: 'Nunito', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: #333;
+    background: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 6px 12px;
+    cursor: pointer;
+    outline: none;
+    min-width: 80px;
+  }
+  #go-btn {
+    display: flex; align-items: center; justify-content: center;
+    width: 40px; height: 40px;
+    background: rgba(255,255,255,0.92);
+    border: none; border-radius: 50%;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.15s;
+    flex-shrink: 0;
+  }
+  #go-btn:hover { background: #fff; transform: scale(1.1); }
+  #go-btn svg { width: 20px; height: 20px; }
+
+  #loading-msg {
+    font-size: 0.8rem;
+    color: rgba(255,255,255,0.55);
+    font-style: italic;
+  }
 </style>
 </head>
 <body>
 
-<div id="loading">Loading...</div>
-<div id="slideshow"></div>
+<div id="bg"></div>
+<div id="overlay"></div>
 
-<div id="nav-bar">
-  <div class="nav-center">
-    <button class="nav-btn" id="btn-prev">&#8592; Prev</button>
-    <span id="page-indicator">1 / 22</span>
-    <button class="nav-btn" id="btn-next">Next &#8594;</button>
+<div id="content">
+  <div>
+    <div class="title-en">Beautiful Creation</div>
+    <div class="title-zh">美麗的創造</div>
   </div>
-  <div class="nav-days">
-    <button class="day-btn" onclick="goToDay(0)">1</button>
-    <button class="day-btn" onclick="goToDay(1)">2</button>
-    <button class="day-btn" onclick="goToDay(2)">3</button>
-    <button class="day-btn" onclick="goToDay(3)">4</button>
+
+  <div class="preface">
+    <div class="preface-en">We live in a beautiful world! Just look at the amazing things around you. Let's go back to the beginning and see what the Bible tells us about how it all began.</div>
+    <div class="preface-zh">我們生活在一個美麗的世界，看你身邊那些奇妙的事物，就知道了。來看看聖經告訴我們這世界是如何起源的。</div>
   </div>
+
+  <div class="selector-row">
+    <span class="selector-label">Version</span>
+    <select id="version-select">
+      <option value="">Loading...</option>
+    </select>
+    <button id="go-btn" title="Begin">
+      <svg viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="9 18 15 12 9 6"/>
+      </svg>
+    </button>
+  </div>
+
+  <div id="loading-msg">Detecting available versions...</div>
 </div>
 
 <script>
-// ─────────────────────────────────────────────
-// URL ROUTING — parse grade from path e.g. /1, /2 ... /6
-// ─────────────────────────────────────────────
-function getGradeFromPath() {
-  var params = new URLSearchParams(window.location.search);
-  var grade = parseInt(params.get('v'));
-  if (!isNaN(grade) && grade >= 1 && grade <= 6) return grade;
-  return 1; // default to grade 1
-}
+// Scan versions 1-99, add to dropdown only if data.js loads
+var maxVersion = 99;
+var found = [];
+var checked = 0;
 
-function loadDataScript(grade, callback) {
-  var script = document.createElement('script');
-  script.src = grade + '/data.js';
-  script.onload = callback;
-  script.onerror = function() {
-    document.getElementById('loading').textContent = 'Error loading data for grade ' + grade + '. Falling back to grade 1...';
-    if (grade !== 1) {
-      loadDataScript(1, callback);
-    }
-  };
-  document.head.appendChild(script);
-}
-
-// ─────────────────────────────────────────────
-// HIGHLIGHT — substring matching
-// ─────────────────────────────────────────────
-function escapeRegex(s) { return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); }
-
-function highlightText(text, activeWords) {
-  if (!activeWords || activeWords.length === 0) return text;
-  var sorted = activeWords.slice().sort(function(a, b) { return b.length - a.length; });
-  var result = text;
-  sorted.forEach(function(word) {
-    var color = VOCAB_COLORS[word];
-    var zh = VOCAB_ZH[word];
-    var reEn = new RegExp(escapeRegex(word), 'gi');
-    result = result.replace(reEn, function(m) { return '<span class="hl" style="background:' + color + '">' + m + '</span>'; });
-    if (zh) {
-      var reZh = new RegExp(escapeRegex(zh), 'g');
-      result = result.replace(reZh, function(m) { return '<span class="hl" style="background:' + color + '">' + m + '</span>'; });
-    }
-  });
-  return result;
-}
-
-// ─────────────────────────────────────────────
-// AUTO-FIT FONT FOR MAIN TEXT
-// ─────────────────────────────────────────────
-function fitMainText(slideEl) {
-  var mainEl = slideEl.querySelector('.main-text');
-  if (!mainEl) return;
-  var enEl = mainEl.querySelector('.text-en');
-  var zhEl = mainEl.querySelector('.text-zh');
-  if (!enEl) return;
-  var enSize = 2.8;
-  var minSize = 0.85;
-  enEl.style.fontSize = enSize + 'rem';
-  if (zhEl) zhEl.style.fontSize = (enSize * 0.62) + 'rem';
-  while (enSize > minSize && mainEl.scrollHeight > mainEl.clientHeight) {
-    enSize = Math.round((enSize - 0.1) * 10) / 10;
-    enEl.style.fontSize = enSize + 'rem';
-    if (zhEl) zhEl.style.fontSize = (enSize * 0.62) + 'rem';
+function buildDropdown() {
+  var select = document.getElementById('version-select');
+  var msg = document.getElementById('loading-msg');
+  select.innerHTML = '';
+  if (found.length === 0) {
+    select.innerHTML = '<option value="">No versions found</option>';
+    msg.textContent = 'No version data found. Please check your setup.';
+    return;
   }
+  found.sort(function(a, b) { return a - b; });
+  found.forEach(function(v) {
+    var opt = document.createElement('option');
+    opt.value = v;
+    opt.textContent = 'Version ' + v;
+    select.appendChild(opt);
+  });
+  msg.textContent = found.length + ' version' + (found.length > 1 ? 's' : '') + ' available.';
 }
 
-// ─────────────────────────────────────────────
-// RENDER (called after data.js loads)
-// ─────────────────────────────────────────────
-var slides = [];
-var dayStartIndices = [];
-var total = 0;
-var current = 0;
-
-function buildSlides() {
-  days.forEach(function(day, di) {
-    dayStartIndices.push(slides.length);
-    slides.push({ type: 'title', dayIndex: di, data: day.titleSlide });
-    day.verseSlides.forEach(function(vs) {
-      slides.push({ type: 'verse', dayIndex: di, data: vs });
+function checkVersion(v) {
+  // Use fetch to test if data.js exists for this version
+  fetch(v + '/data.js', { method: 'HEAD' })
+    .then(function(res) {
+      if (res.ok) found.push(v);
+    })
+    .catch(function() {})
+    .finally(function() {
+      checked++;
+      if (checked === maxVersion) buildDropdown();
     });
-  });
-  total = slides.length;
 }
 
-var container = document.getElementById('slideshow');
-
-function buildTitleSlide(s, idx) {
-  var d = s.data;
-  var div = document.createElement('div');
-  div.className = 'slide slide-title';
-  div.style.backgroundImage = "url('" + d.image + "')";
-  div.dataset.slideIndex = idx;
-  var vocabStr = d.vocab.map(function(w) { return w + ' ' + VOCAB_ZH[w]; }).join('  \u00b7  ');
-  div.innerHTML =
-    '<div class="title-day">' + d.title + '</div>' +
-    '<div class="title-verse-block">' +
-      '<div class="title-verse-en">' + d.verseEn + '</div>' +
-      '<div class="title-verse-zh">' + d.verseZh + '</div>' +
-    '</div>' +
-    '<div class="title-vocab">' + vocabStr + '</div>';
-  return div;
+for (var i = 1; i <= maxVersion; i++) {
+  checkVersion(i);
 }
 
-function buildVerseSlide(s, idx) {
-  var d = s.data;
-  var div = document.createElement('div');
-  div.className = 'slide slide-verse';
-  div.style.backgroundImage = "url('" + d.image + "')";
-  div.dataset.slideIndex = idx;
-  div.dataset.swapped = 'false';
-  div.dataset.activeVocab = '[]';
-
-  var chipsHtml = d.vocab.map(function(w) {
-    return '<div class="vocab-chip" data-word="' + w + '">' +
-      '<span class="chip-en">' + w + '</span>' +
-      '<span class="chip-zh">' + VOCAB_ZH[w] + '</span></div>';
-  }).join('');
-
-  div.innerHTML =
-    '<div class="verse-overlay"></div>' +
-    '<div class="verse-content">' +
-      '<div class="main-text">' +
-        '<div class="label">' + d.ref + ' \u2014 Key Thought</div>' +
-        '<div class="text-en key-en">' + d.keyEn + '</div>' +
-        '<div class="text-zh key-zh">' + d.keyZh + '</div>' +
-      '</div>' +
-      '<div class="vocab-section">' + chipsHtml + '</div>' +
-      '<div class="sub-text">' +
-        '<span class="tap-hint">tap to swap</span>' +
-        '<div class="label">' + d.ref + ' \u2014 Bible Verse</div>' +
-        '<div class="text-en verse-en">' + d.verseEn + '</div>' +
-        '<div class="text-zh verse-zh">' + d.verseZh + '</div>' +
-      '</div>' +
-    '</div>';
-
-  div.querySelector('.sub-text').addEventListener('click', function() { toggleSwap(idx); });
-  div.querySelectorAll('.vocab-chip').forEach(function(chip) {
-    chip.addEventListener('click', function(e) {
-      e.stopPropagation();
-      toggleVocab(chip, idx);
-    });
-  });
-
-  return div;
-}
-
-function renderSlides() {
-  container.innerHTML = '';
-  slides.forEach(function(s, idx) {
-    container.appendChild(s.type === 'title' ? buildTitleSlide(s, idx) : buildVerseSlide(s, idx));
-  });
-  showSlide(0);
-  document.getElementById('loading').classList.add('hidden');
-}
-
-// ─────────────────────────────────────────────
-// VOCAB TOGGLE
-// ─────────────────────────────────────────────
-function toggleVocab(chipEl, slideIdx) {
-  var word = chipEl.dataset.word;
-  var slideEl = document.querySelector('.slide[data-slide-index="' + slideIdx + '"]');
-  var active = JSON.parse(slideEl.dataset.activeVocab);
-  if (active.indexOf(word) > -1) {
-    active = active.filter(function(w) { return w !== word; });
-    chipEl.classList.remove('active');
-  } else {
-    active.push(word);
-    chipEl.classList.add('active');
-  }
-  slideEl.dataset.activeVocab = JSON.stringify(active);
-  applyHighlights(slideEl, active);
-}
-
-function applyHighlights(slideEl, activeWords) {
-  var idx = parseInt(slideEl.dataset.slideIndex);
-  var d = slides[idx].data;
-  var isSwapped = slideEl.dataset.swapped === 'true';
-  var mainEnEl = slideEl.querySelector('.key-en');
-  var mainZhEl = slideEl.querySelector('.key-zh');
-  var subEnEl  = slideEl.querySelector('.verse-en');
-  var subZhEl  = slideEl.querySelector('.verse-zh');
-  // Split active words into full-highlight vs key-thought-only
-  var keyOnly = (d.keyOnlyVocab || []);
-  var allWords = activeWords;
-  var keyOnlyActive = activeWords.filter(function(w) { return keyOnly.indexOf(w) > -1; });
-  var bothActive = activeWords.filter(function(w) { return keyOnly.indexOf(w) === -1; });
-  if (isSwapped) {
-    // verse text in main, key thought in sub
-    mainEnEl.innerHTML = highlightText(d.verseEn, bothActive);
-    mainZhEl.innerHTML = highlightText(d.verseZh, bothActive);
-    subEnEl.innerHTML  = highlightText(d.keyEn, allWords);
-    subZhEl.innerHTML  = highlightText(d.keyZh, allWords);
-  } else {
-    // key thought in main, verse text in sub
-    mainEnEl.innerHTML = highlightText(d.keyEn, allWords);
-    mainZhEl.innerHTML = highlightText(d.keyZh, allWords);
-    subEnEl.innerHTML  = highlightText(d.verseEn, bothActive);
-    subZhEl.innerHTML  = highlightText(d.verseZh, bothActive);
-  }
-}
-
-// ─────────────────────────────────────────────
-// SWAP TOGGLE
-// ─────────────────────────────────────────────
-function toggleSwap(slideIdx) {
-  var slideEl = document.querySelector('.slide[data-slide-index="' + slideIdx + '"]');
-  var d = slides[slideIdx].data;
-  var isSwapped = slideEl.dataset.swapped === 'true';
-  var newSwapped = !isSwapped;
-  slideEl.dataset.swapped = newSwapped ? 'true' : 'false';
-  var active = JSON.parse(slideEl.dataset.activeVocab);
-  var mainLabel = slideEl.querySelector('.main-text .label');
-  var subLabel  = slideEl.querySelector('.sub-text .label');
-  if (newSwapped) {
-    mainLabel.textContent = d.ref + ' \u2014 Bible Verse';
-    subLabel.textContent  = d.ref + ' \u2014 Key Thought';
-    slideEl.querySelector('.key-en').innerHTML   = highlightText(d.verseEn, active);
-    slideEl.querySelector('.key-zh').innerHTML   = highlightText(d.verseZh, active);
-    slideEl.querySelector('.verse-en').innerHTML = highlightText(d.keyEn, active);
-    slideEl.querySelector('.verse-zh').innerHTML = highlightText(d.keyZh, active);
-  } else {
-    mainLabel.textContent = d.ref + ' \u2014 Key Thought';
-    subLabel.textContent  = d.ref + ' \u2014 Bible Verse';
-    slideEl.querySelector('.key-en').innerHTML   = highlightText(d.keyEn, active);
-    slideEl.querySelector('.key-zh').innerHTML   = highlightText(d.keyZh, active);
-    slideEl.querySelector('.verse-en').innerHTML = highlightText(d.verseEn, active);
-    slideEl.querySelector('.verse-zh').innerHTML = highlightText(d.verseZh, active);
-  }
-  requestAnimationFrame(function() { fitMainText(slideEl); });
-}
-
-// ─────────────────────────────────────────────
-// NAVIGATION
-// ─────────────────────────────────────────────
-function showSlide(idx) {
-  document.querySelectorAll('.slide').forEach(function(el) { el.classList.remove('active'); });
-  var slideEl = document.querySelector('.slide[data-slide-index="' + idx + '"]');
-  slideEl.classList.add('active');
-  current = idx;
-  document.getElementById('page-indicator').textContent = (idx + 1) + ' / ' + total;
-  document.getElementById('btn-prev').disabled = idx === 0;
-  document.getElementById('btn-next').disabled = idx === total - 1;
-  var dayBtns = document.querySelectorAll('.day-btn');
-  var currentDay = slides[idx].dayIndex;
-  dayBtns.forEach(function(btn, i) { btn.classList.toggle('current-day', i === currentDay); });
-  // Update nav height for wrapping on mobile
-  updateNavHeight();
-  if (slides[idx].type === 'verse') {
-    requestAnimationFrame(function() { fitMainText(slideEl); });
-  }
-}
-
-function updateNavHeight() {
-  var navBar = document.getElementById('nav-bar');
-  var h = navBar.offsetHeight;
-  document.documentElement.style.setProperty('--nav-height', h + 'px');
-}
-
-function goToDay(dayIdx) { showSlide(dayStartIndices[dayIdx]); }
-
-document.getElementById('btn-prev').addEventListener('click', function() { if (current > 0) showSlide(current - 1); });
-document.getElementById('btn-next').addEventListener('click', function() { if (current < total - 1) showSlide(current + 1); });
-document.addEventListener('keydown', function(e) {
-  if (e.key === 'ArrowRight' || e.key === 'ArrowDown') { if (current < total - 1) showSlide(current + 1); }
-  else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') { if (current > 0) showSlide(current - 1); }
+document.getElementById('go-btn').addEventListener('click', function() {
+  var v = document.getElementById('version-select').value;
+  if (v) window.location.href = 'slideshow.html?v=' + v;
 });
-window.addEventListener('resize', updateNavHeight);
 
-// ─────────────────────────────────────────────
-// INIT — load data then build
-// ─────────────────────────────────────────────
-var grade = getGradeFromPath();
-document.getElementById('loading').textContent = 'Loading Grade ' + grade + ' content...';
-loadDataScript(grade, function() {
-  buildSlides();
-  renderSlides();
+// Also allow pressing Enter on the select
+document.getElementById('version-select').addEventListener('keydown', function(e) {
+  if (e.key === 'Enter') {
+    var v = this.value;
+    if (v) window.location.href = 'slideshow.html?v=' + v;
+  }
 });
 </script>
 </body>

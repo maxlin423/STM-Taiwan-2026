@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Beautiful Creation — VBS 2026</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700;900&family=Fredoka+One&family=Nunito:wght@400;700;800;900&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root { --nav-height: 68px; }
+
+  html, body {
+    width: 100%; height: 100%;
+    overflow: hidden;
+    font-family: 'Nunito', 'Noto Sans TC', sans-serif;
+  }
+
+  #slideshow { width: 100%; height: 100%; position: relative; }
+
+  .slide {
+    display: none;
+    position: absolute;
+    inset: 0;
+    bottom: var(--nav-height);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+  .slide.active { display: flex; flex-direction: column; }
+
+  /* ── TITLE SLIDE ── */
+  .slide-title { justify-content: space-between; padding: 32px 40px 20px; }
+  .title-day {
+    font-family: 'Fredoka One', cursive;
+    font-size: clamp(2rem, 5vw, 3.6rem);
+    color: #fff;
+    text-shadow: 2px 3px 8px rgba(0,0,0,0.7);
+    line-height: 1.15;
+  }
+  .title-verse-block {
+    background: rgba(0,0,0,0.42);
+    border-radius: 14px;
+    padding: 14px 20px;
+    backdrop-filter: blur(4px);
+  }
+  .title-verse-en { font-size: clamp(0.95rem,2.2vw,1.3rem); color:#fff; font-weight:700; line-height:1.4; }
+  .title-verse-zh { font-size: clamp(0.85rem,2vw,1.15rem); color:#ffe; font-weight:400; line-height:1.4; margin-top:4px; }
+  .title-vocab {
+    font-size: clamp(0.7rem,1.5vw,0.95rem);
+    color: #fff;
+    text-shadow: 1px 1px 4px rgba(0,0,0,0.8);
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    line-height: 1.7;
+    word-spacing: 0.3em;
+  }
+
+  /* ── VERSE SLIDE ── */
+  .slide-verse { flex-direction: column; }
+  .verse-overlay { position: absolute; inset: 0; background: rgba(0,0,0,0.38); }
+  .verse-content {
+    position: relative; z-index: 2;
+    display: flex; flex-direction: column;
+    height: 100%;
+    padding: 14px 24px 14px;
+    gap: 8px;
+  }
+
+  /* MAIN TEXT */
+  .main-text {
+    flex: 0 0 60%;
+    padding: 16px 20px;
+    border-radius: 14px;
+    background: rgba(255,255,255,0.15);
+    backdrop-filter: blur(6px);
+    display: flex; flex-direction: column;
+    justify-content: center;
+    overflow: hidden; min-height: 0;
+  }
+  .main-text .label {
+    font-size: clamp(0.58rem,1.2vw,0.75rem);
+    font-weight: 800; color: #ffe;
+    text-transform: uppercase; letter-spacing: 0.12em;
+    margin-bottom: 6px; opacity: 0.85; flex-shrink: 0;
+  }
+  .main-text .text-en {
+    font-family: 'Fredoka One', cursive;
+    font-size: 2.6rem;
+    color: #fff; text-shadow: 1px 2px 6px rgba(0,0,0,0.5); line-height: 1.2;
+  }
+  .main-text .text-zh {
+    font-size: 1.7rem; color: #ffe; font-weight: 700; line-height: 1.4; margin-top: 4px;
+  }
+
+  /* VOCAB SECTION */
+  .vocab-section {
+    flex: 1 1 auto;
+    display: flex; align-items: center; justify-content: center;
+    flex-wrap: wrap; gap: 8px; padding: 2px 0; min-height: 0;
+  }
+  .vocab-chip {
+    font-family: 'Fredoka One', cursive;
+    font-size: clamp(0.82rem,1.7vw,1.05rem);
+    color: #333; background: rgba(255,255,255,0.92);
+    border-radius: 20px; padding: 5px 13px;
+    border: 2px solid transparent;
+    transition: all 0.2s ease;
+    user-select: none; box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    cursor: pointer; display: inline-flex; align-items: center; gap: 5px;
+  }
+  .vocab-chip.active { border-color: #333; box-shadow: 0 2px 10px rgba(0,0,0,0.3); }
+  .chip-en { font-family: 'Fredoka One', cursive; }
+  .chip-zh { font-family: 'Noto Sans TC', sans-serif; font-size: 0.88em; font-weight: 700; opacity: 0.75; }
+
+  /* SUB TEXT */
+  .sub-text {
+    flex: 0 0 auto; max-height: 26%; overflow-y: auto;
+    cursor: pointer; padding: 10px 16px; border-radius: 14px;
+    background: rgba(0,0,0,0.38); backdrop-filter: blur(6px);
+    border: 2px solid rgba(255,255,255,0.25);
+    position: relative; min-height: 0;
+    scrollbar-width: thin; scrollbar-color: rgba(255,255,255,0.3) transparent;
+  }
+  .sub-text::-webkit-scrollbar { width: 4px; }
+  .sub-text::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.3); border-radius: 4px; }
+  .sub-text:hover { background: rgba(0,0,0,0.50); border-color: rgba(255,255,255,0.5); }
+  .sub-text .tap-hint {
+    position: absolute; top: 7px; right: 10px;
+    font-size: 0.62rem; color: rgba(255,255,255,0.45);
+    font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
+  }
+  .sub-text .label {
+    font-size: clamp(0.58rem,1.2vw,0.75rem); font-weight: 800; color: #ffd;
+    text-transform: uppercase; letter-spacing: 0.12em; margin-bottom: 4px; opacity: 0.75;
+  }
+  .sub-text .text-en { font-size: clamp(0.82rem,1.8vw,1.15rem); color:#fff; font-weight:700; line-height:1.45; }
+  .sub-text .text-zh { font-size: clamp(0.75rem,1.6vw,1rem); color:#ffe; font-weight:400; line-height:1.45; margin-top:3px; }
+
+  .hl { border-radius: 3px; padding: 0 1px; transition: background 0.2s; }
+
+  /* ── NAV BAR ── */
+  #nav-bar {
+    position: fixed; bottom:0; left:0; right:0;
+    min-height: var(--nav-height);
+    background: rgba(20,20,30,0.92);
+    backdrop-filter: blur(10px);
+    display: flex; flex-wrap: wrap;
+    align-items: center; justify-content: center;
+    padding: 8px 16px; z-index: 100; gap: 6px;
+  }
+  .nav-center {
+    display: flex; align-items: center; gap: 14px;
+    order: 1; flex: 1 1 100%; justify-content: center;
+  }
+  .nav-btn {
+    font-family: 'Fredoka One', cursive;
+    font-size: 1rem; color: #fff;
+    background: rgba(255,255,255,0.15);
+    border: none; border-radius: 10px;
+    padding: 8px 22px; cursor: pointer;
+    transition: background 0.2s; user-select: none;
+  }
+  .nav-btn:hover { background: rgba(255,255,255,0.28); }
+  .nav-btn:disabled { opacity: 0.3; cursor: default; }
+  #page-indicator {
+    font-family: 'Nunito', sans-serif;
+    font-size: 0.85rem; color: rgba(255,255,255,0.7);
+    font-weight: 700; min-width: 52px; text-align: center;
+  }
+  .nav-days {
+    display: flex; gap: 8px; align-items: center;
+    justify-content: center; order: 2; flex-wrap: wrap;
+  }
+  .day-btn {
+    font-family: 'Fredoka One', cursive;
+    font-size: 0.95rem; color: #fff;
+    background: rgba(255,255,255,0.15);
+    border: 2px solid rgba(255,255,255,0.25);
+    border-radius: 50%; width: 36px; height: 36px;
+    cursor: pointer; transition: all 0.2s;
+    display: flex; align-items: center; justify-content: center;
+    user-select: none; flex-shrink: 0;
+  }
+  .day-btn:hover { background: rgba(255,255,255,0.32); border-color: rgba(255,255,255,0.6); }
+  .day-btn.current-day { background: rgba(255,220,80,0.4); border-color: #ffd84f; color: #ffd84f; }
+  .home-btn {
+    background: rgba(255,255,255,0.15);
+    border: 2px solid rgba(255,255,255,0.25);
+    border-radius: 50%; width: 36px; height: 36px;
+    cursor: pointer; transition: all 0.2s;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .home-btn:hover { background: rgba(255,255,255,0.32); border-color: rgba(255,255,255,0.6); }
+  .home-btn svg { width: 18px; height: 18px; }
+
+  @media (min-width: 520px) {
+    #nav-bar { flex-wrap: nowrap; min-height: var(--nav-height); padding: 0 16px; }
+    .nav-center { flex: 0 0 auto; order: 2; position: absolute; left: 50%; transform: translateX(-50%); }
+    .nav-days { order: 3; margin-left: auto; }
+  }
+
+  #loading {
+    position: fixed; inset: 0; background: #1a1a2e;
+    display: flex; align-items: center; justify-content: center;
+    z-index: 999; font-family: 'Fredoka One', cursive;
+    font-size: 1.4rem; color: #fff; text-align: center;
+  }
+  #loading.hidden { display: none; }
+</style>
+</head>
+<body>
+
+<div id="loading">Loading...</div>
+<div id="slideshow"></div>
+
+<div id="nav-bar">
+  <div class="nav-center">
+    <button class="nav-btn" id="btn-prev">&#8592; Prev</button>
+    <span id="page-indicator">1 / 1</span>
+    <button class="nav-btn" id="btn-next">Next &#8594;</button>
+  </div>
+  <div class="nav-days" id="nav-days">
+    <button class="home-btn" onclick="goHome()" title="Home">
+      <svg viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.85)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M3 9.5L12 3l9 6.5V20a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9.5z"/>
+        <polyline points="9 21 9 12 15 12 15 21"/>
+      </svg>
+    </button>
+  </div>
+</div>
+
+<script>
+// ─────────────────────────────────────────────
+// URL ROUTING
+// ─────────────────────────────────────────────
+function getVersion() {
+  var params = new URLSearchParams(window.location.search);
+  var v = parseInt(params.get('v'));
+  if (!isNaN(v) && v >= 1) return v;
+  return 1;
+}
+
+function loadDataScript(v, callback) {
+  var script = document.createElement('script');
+  script.src = v + '/data.js';
+  script.onload = callback;
+  script.onerror = function() {
+    document.getElementById('loading').textContent = 'Error loading version ' + v + '. Falling back to version 1...';
+    if (v !== 1) loadDataScript(1, callback);
+  };
+  document.head.appendChild(script);
+}
+
+function goHome() { window.location.href = 'index.html'; }
+
+// ─────────────────────────────────────────────
+// HIGHLIGHT — substring matching
+// ─────────────────────────────────────────────
+function escapeRegex(s) { return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); }
+
+function highlightText(text, activeWords, keyOnlyWords) {
+  if (!activeWords || activeWords.length === 0) return text;
+  var sorted = activeWords.slice().sort(function(a,b) { return b.length - a.length; });
+  var result = text;
+  sorted.forEach(function(word) {
+    var color = VOCAB_COLORS[word];
+    var zh = VOCAB_ZH[word];
+    var reEn = new RegExp(escapeRegex(word), 'gi');
+    result = result.replace(reEn, function(m) { return '<span class="hl" style="background:' + color + '">' + m + '</span>'; });
+    if (zh) {
+      var reZh = new RegExp(escapeRegex(zh), 'g');
+      result = result.replace(reZh, function(m) { return '<span class="hl" style="background:' + color + '">' + m + '</span>'; });
+    }
+  });
+  return result;
+}
+
+// ─────────────────────────────────────────────
+// AUTO-FIT FONT
+// ─────────────────────────────────────────────
+function fitMainText(slideEl) {
+  var mainEl = slideEl.querySelector('.main-text');
+  if (!mainEl) return;
+  var enEl = mainEl.querySelector('.text-en');
+  var zhEl = mainEl.querySelector('.text-zh');
+  if (!enEl) return;
+  var enSize = 2.8;
+  var minSize = 0.85;
+  enEl.style.fontSize = enSize + 'rem';
+  if (zhEl) zhEl.style.fontSize = (enSize * 0.62) + 'rem';
+  while (enSize > minSize && mainEl.scrollHeight > mainEl.clientHeight) {
+    enSize = Math.round((enSize - 0.1) * 10) / 10;
+    enEl.style.fontSize = enSize + 'rem';
+    if (zhEl) zhEl.style.fontSize = (enSize * 0.62) + 'rem';
+  }
+}
+
+// ─────────────────────────────────────────────
+// BUILD SLIDES
+// ─────────────────────────────────────────────
+var slides = [];
+var dayStartIndices = [];
+var total = 0;
+var current = 0;
+var container = document.getElementById('slideshow');
+
+function buildSlides() {
+  slides = []; dayStartIndices = [];
+  days.forEach(function(day, di) {
+    dayStartIndices.push(slides.length);
+    slides.push({ type: 'title', dayIndex: di, data: day.titleSlide });
+    day.verseSlides.forEach(function(vs) {
+      slides.push({ type: 'verse', dayIndex: di, data: vs });
+    });
+  });
+  total = slides.length;
+}
+
+function buildTitleSlide(s, idx) {
+  var d = s.data;
+  var div = document.createElement('div');
+  div.className = 'slide slide-title';
+  div.style.backgroundImage = "url('" + d.image + "')";
+  div.dataset.slideIndex = idx;
+  var vocabStr = d.vocab.map(function(w) { return w + ' ' + VOCAB_ZH[w]; }).join('  \u00b7  ');
+  div.innerHTML =
+    '<div class="title-day">' + d.title + '</div>' +
+    '<div class="title-verse-block">' +
+      '<div class="title-verse-en">' + d.verseEn + '</div>' +
+      '<div class="title-verse-zh">' + d.verseZh + '</div>' +
+    '</div>' +
+    '<div class="title-vocab">' + vocabStr + '</div>';
+  return div;
+}
+
+function buildVerseSlide(s, idx) {
+  var d = s.data;
+  var div = document.createElement('div');
+  div.className = 'slide slide-verse';
+  div.style.backgroundImage = "url('" + d.image + "')";
+  div.dataset.slideIndex = idx;
+  div.dataset.swapped = 'false';
+  div.dataset.activeVocab = '[]';
+
+  var chipsHtml = d.vocab.map(function(w) {
+    return '<div class="vocab-chip" data-word="' + w + '">' +
+      '<span class="chip-en">' + w + '</span>' +
+      '<span class="chip-zh">' + VOCAB_ZH[w] + '</span></div>';
+  }).join('');
+
+  div.innerHTML =
+    '<div class="verse-overlay"></div>' +
+    '<div class="verse-content">' +
+      '<div class="main-text">' +
+        '<div class="label">' + d.ref + ' \u2014 Key Thought</div>' +
+        '<div class="text-en key-en">' + d.keyEn + '</div>' +
+        '<div class="text-zh key-zh">' + d.keyZh + '</div>' +
+      '</div>' +
+      '<div class="vocab-section">' + chipsHtml + '</div>' +
+      '<div class="sub-text">' +
+        '<span class="tap-hint">tap to swap</span>' +
+        '<div class="label">' + d.ref + ' \u2014 Bible Verse</div>' +
+        '<div class="text-en verse-en">' + d.verseEn + '</div>' +
+        '<div class="text-zh verse-zh">' + d.verseZh + '</div>' +
+      '</div>' +
+    '</div>';
+
+  div.querySelector('.sub-text').addEventListener('click', function() { toggleSwap(idx); });
+  div.querySelectorAll('.vocab-chip').forEach(function(chip) {
+    chip.addEventListener('click', function(e) { e.stopPropagation(); toggleVocab(chip, idx); });
+  });
+  return div;
+}
+
+function buildDayButtons() {
+  var navDays = document.getElementById('nav-days');
+  // Remove old day buttons (keep home btn)
+  var existing = navDays.querySelectorAll('.day-btn');
+  existing.forEach(function(b) { b.remove(); });
+  days.forEach(function(day, i) {
+    var btn = document.createElement('button');
+    btn.className = 'day-btn';
+    btn.textContent = i + 1;
+    btn.addEventListener('click', function() { goToDay(i); });
+    navDays.appendChild(btn);
+  });
+}
+
+function renderSlides() {
+  container.innerHTML = '';
+  slides.forEach(function(s, idx) {
+    container.appendChild(s.type === 'title' ? buildTitleSlide(s, idx) : buildVerseSlide(s, idx));
+  });
+  buildDayButtons();
+  showSlide(0);
+  document.getElementById('loading').classList.add('hidden');
+}
+
+// ─────────────────────────────────────────────
+// VOCAB TOGGLE
+// ─────────────────────────────────────────────
+function toggleVocab(chipEl, slideIdx) {
+  var word = chipEl.dataset.word;
+  var slideEl = document.querySelector('.slide[data-slide-index="' + slideIdx + '"]');
+  var active = JSON.parse(slideEl.dataset.activeVocab);
+  if (active.indexOf(word) > -1) {
+    active = active.filter(function(w) { return w !== word; });
+    chipEl.classList.remove('active');
+  } else {
+    active.push(word);
+    chipEl.classList.add('active');
+  }
+  slideEl.dataset.activeVocab = JSON.stringify(active);
+  applyHighlights(slideEl, active);
+}
+
+function applyHighlights(slideEl, activeWords) {
+  var idx = parseInt(slideEl.dataset.slideIndex);
+  var d = slides[idx].data;
+  var isSwapped = slideEl.dataset.swapped === 'true';
+  var keyOnly = (d.keyOnlyVocab || []);
+  var bothActive = activeWords.filter(function(w) { return keyOnly.indexOf(w) === -1; });
+  var mainEnEl = slideEl.querySelector('.key-en');
+  var mainZhEl = slideEl.querySelector('.key-zh');
+  var subEnEl  = slideEl.querySelector('.verse-en');
+  var subZhEl  = slideEl.querySelector('.verse-zh');
+  if (isSwapped) {
+    mainEnEl.innerHTML = highlightText(d.verseEn, bothActive);
+    mainZhEl.innerHTML = highlightText(d.verseZh, bothActive);
+    subEnEl.innerHTML  = highlightText(d.keyEn, activeWords);
+    subZhEl.innerHTML  = highlightText(d.keyZh, activeWords);
+  } else {
+    mainEnEl.innerHTML = highlightText(d.keyEn, activeWords);
+    mainZhEl.innerHTML = highlightText(d.keyZh, activeWords);
+    subEnEl.innerHTML  = highlightText(d.verseEn, bothActive);
+    subZhEl.innerHTML  = highlightText(d.verseZh, bothActive);
+  }
+}
+
+// ─────────────────────────────────────────────
+// SWAP TOGGLE
+// ─────────────────────────────────────────────
+function toggleSwap(slideIdx) {
+  var slideEl = document.querySelector('.slide[data-slide-index="' + slideIdx + '"]');
+  var d = slides[slideIdx].data;
+  var isSwapped = slideEl.dataset.swapped === 'true';
+  var newSwapped = !isSwapped;
+  slideEl.dataset.swapped = newSwapped ? 'true' : 'false';
+  var active = JSON.parse(slideEl.dataset.activeVocab);
+  var mainLabel = slideEl.querySelector('.main-text .label');
+  var subLabel  = slideEl.querySelector('.sub-text .label');
+  if (newSwapped) {
+    mainLabel.textContent = d.ref + ' \u2014 Bible Verse';
+    subLabel.textContent  = d.ref + ' \u2014 Key Thought';
+    slideEl.querySelector('.key-en').innerHTML   = highlightText(d.verseEn, active);
+    slideEl.querySelector('.key-zh').innerHTML   = highlightText(d.verseZh, active);
+    slideEl.querySelector('.verse-en').innerHTML = highlightText(d.keyEn, active);
+    slideEl.querySelector('.verse-zh').innerHTML = highlightText(d.keyZh, active);
+  } else {
+    mainLabel.textContent = d.ref + ' \u2014 Key Thought';
+    subLabel.textContent  = d.ref + ' \u2014 Bible Verse';
+    slideEl.querySelector('.key-en').innerHTML   = highlightText(d.keyEn, active);
+    slideEl.querySelector('.key-zh').innerHTML   = highlightText(d.keyZh, active);
+    slideEl.querySelector('.verse-en').innerHTML = highlightText(d.verseEn, active);
+    slideEl.querySelector('.verse-zh').innerHTML = highlightText(d.verseZh, active);
+  }
+  requestAnimationFrame(function() { fitMainText(slideEl); });
+}
+
+// ─────────────────────────────────────────────
+// NAVIGATION
+// ─────────────────────────────────────────────
+function updateNavHeight() {
+  var h = document.getElementById('nav-bar').offsetHeight;
+  document.documentElement.style.setProperty('--nav-height', h + 'px');
+}
+
+function showSlide(idx) {
+  document.querySelectorAll('.slide').forEach(function(el) { el.classList.remove('active'); });
+  var slideEl = document.querySelector('.slide[data-slide-index="' + idx + '"]');
+  slideEl.classList.add('active');
+  current = idx;
+  document.getElementById('page-indicator').textContent = (idx + 1) + ' / ' + total;
+  document.getElementById('btn-prev').disabled = idx === 0;
+  document.getElementById('btn-next').disabled = idx === total - 1;
+  var dayBtns = document.querySelectorAll('.day-btn');
+  var currentDay = slides[idx].dayIndex;
+  dayBtns.forEach(function(btn, i) { btn.classList.toggle('current-day', i === currentDay); });
+  updateNavHeight();
+  if (slides[idx].type === 'verse') {
+    requestAnimationFrame(function() { fitMainText(slideEl); });
+  }
+}
+
+function goToDay(dayIdx) { showSlide(dayStartIndices[dayIdx]); }
+
+document.getElementById('btn-prev').addEventListener('click', function() { if (current > 0) showSlide(current - 1); });
+document.getElementById('btn-next').addEventListener('click', function() { if (current < total - 1) showSlide(current + 1); });
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'ArrowRight' || e.key === 'ArrowDown') { if (current < total - 1) showSlide(current + 1); }
+  else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') { if (current > 0) showSlide(current - 1); }
+});
+window.addEventListener('resize', updateNavHeight);
+
+// ─────────────────────────────────────────────
+// INIT
+// ─────────────────────────────────────────────
+var version = getVersion();
+document.getElementById('loading').textContent = 'Loading version ' + version + '...';
+loadDataScript(version, function() {
+  buildSlides();
+  renderSlides();
+});
+</script>
+</body>
+</html>
