@@ -113,7 +113,7 @@ const VOCAB_ZH = {
 
 const days = [
   // ─────────────────────────────────────────────
-  // LESSON 1
+  // LESSON 1 — Creation Days 1 & 2
   // ─────────────────────────────────────────────
   {
     titleSlide: {
@@ -124,7 +124,7 @@ const days = [
       vocab:   ['GOD','HEAVEN','EARTH','LIGHT','DARK','NIGHT','ONE','FIRST','WATER','SKY','SEPARATE','TWO','SECOND']
     },
     verseSlides: [
-      {
+            {
         ref:          'Genesis 1:1–5',
         image:        'Slideshows/Day1/Genesis_1-1.jpg',
         keyEn:        'In the beginning, God made the heavens and the earth.',
@@ -134,7 +134,7 @@ const days = [
         vocab:        ['GOD','HEAVEN','EARTH'],
         keyOnlyVocab: []
       },
-      {
+            {
         ref:          'Genesis 1:1–5',
         image:        'Slideshows/Day1/Genesis_1-4-5.jpg',
         keyEn:        'God moved over the darkness and said, "Light!" He called the light "Day" and He called the darkness "Night".',
@@ -144,7 +144,7 @@ const days = [
         vocab:        ['LIGHT','DARK','NIGHT'],
         keyOnlyVocab: []
       },
-      {
+            {
         ref:          'Genesis 1:1–5',
         image:        'Slideshows/Day1/Genesis_1-4-5.jpg',
         keyEn:        'Day One! Done!',
@@ -154,7 +154,7 @@ const days = [
         vocab:        ['ONE','FIRST'],
         keyOnlyVocab: []
       },
-      {
+            {
         ref:          'Genesis 1:6–8',
         image:        'Slideshows/Day2/Genesis_1-9.jpeg',
         keyEn:        'Then God made a space to separate the waters above from the waters below. He called the space "Sky".',
@@ -164,7 +164,7 @@ const days = [
         vocab:        ['WATER','SKY','SEPARATE'],
         keyOnlyVocab: []
       },
-      {
+            {
         ref:          'Genesis 1:6–8',
         image:        'Slideshows/Day2/Genesis_1-9.jpeg',
         keyEn:        'Day Two! Done!',
@@ -178,7 +178,7 @@ const days = [
   },
 
   // ─────────────────────────────────────────────
-  // LESSON 2 (Day 3 — Land, Seas & Plants)
+  // LESSON 2 — Creation Days 3 & 4
   // ─────────────────────────────────────────────
   {
     titleSlide: {
@@ -186,10 +186,10 @@ const days = [
       title:   'God Created Land and Plants',
       verseEn: '"God saw that it was good." (Genesis 1:10)',
       verseZh: '神看著是好的。（創世記 1:10）',
-      vocab:   ['LAND','SEAS','GROUND','PLANT','TREE','SEED','THREE','THIRD']
+      vocab:   ['LAND','SEAS','GROUND','PLANT','TREE','SEED','THREE','THIRD','SUN','MOON','STAR','FOUR','FOURTH']
     },
     verseSlides: [
-      {
+            {
         ref:          'Genesis 1:9–13',
         image:        'Slideshows/Day2/Genesis_1-10.jpeg',
         keyEn:        'God gathered the waters together, and dry ground appeared. He called the ground "Land" and the waters "Seas".',
@@ -199,7 +199,7 @@ const days = [
         vocab:        ['LAND','SEAS','GROUND'],
         keyOnlyVocab: []
       },
-      {
+            {
         ref:          'Genesis 1:9–13',
         image:        'Slideshows/Day2/Genesis_1-11-12.jpeg',
         keyEn:        'Then He made plants like grass, grain and trees.',
@@ -209,7 +209,7 @@ const days = [
         vocab:        ['PLANT','TREE','SEED'],
         keyOnlyVocab: []
       },
-      {
+            {
         ref:          'Genesis 1:9–13',
         image:        'Slideshows/Day2/Genesis_1-11-12.jpeg',
         keyEn:        'Day Three! Done!',
@@ -218,23 +218,8 @@ const days = [
         verseZh:      '神說：「天下的水要聚在一處，使旱地露出來。」事就這樣成了。神稱旱地為地，稱水的聚處為海。神看著是好的。神說：「地要發生青草和結種子的菜蔬，並結果子的樹木，各從其類，果子都包著核。」事就這樣成了。於是地發生了青草和結種子的菜蔬，各從其類；並結果子的樹木，各從其類；果子都包著核。神看著是好的。有晚上，有早晨，是第三日。',
         vocab:        ['THREE','THIRD'],
         keyOnlyVocab: []
-      }
-    ]
-  },
-
-  // ─────────────────────────────────────────────
-  // LESSON 3
-  // ─────────────────────────────────────────────
-  {
-    titleSlide: {
-      image:   'Slideshows/Day3/day3_00_title.jpeg',
-      title:   'God Created Animals',
-      verseEn: '"God created all kinds of animals." (Genesis 1:21)',
-      verseZh: '神造出各樣活物，各從其類。（創世記 1:21）',
-      vocab:   ['SUN','MOON','STAR','FOUR','FOURTH','FISH','BIRD','SWIM','FILL','MULTIPLY','SING','FIVE','FIFTH']
-    },
-    verseSlides: [
-      {
+      },
+            {
         ref:          'Genesis 1:14–19',
         image:        'Slideshows/Day2/Genesis_1-13.jpeg',
         keyEn:        'Then God made lights in the sky. He made the sun for the day, the moon for the night, and all the stars.',
@@ -244,7 +229,7 @@ const days = [
         vocab:        ['SUN','MOON','STAR'],
         keyOnlyVocab: []
       },
-      {
+            {
         ref:          'Genesis 1:14–19',
         image:        'Slideshows/Day2/Genesis_1-13.jpeg',
         keyEn:        'Day Four! Done!',
@@ -253,8 +238,23 @@ const days = [
         verseZh:      '神說：「天上要有光體，可以分晝夜，作記號，定節令、日子、年歲；並要發光在天空，普照在地上。」事就這樣成了。於是神造了兩個大光，大的管晝，小的管夜，又造了眾星。就把這些光擺列在天空，普照在地上，管理晝夜，分別明暗。神看著是好的。有晚上，有早晨，是第四日。',
         vocab:        ['FOUR','FOURTH'],
         keyOnlyVocab: []
-      },
-      {
+      }
+    ]
+  },
+
+  // ─────────────────────────────────────────────
+  // LESSON 3 — Creation Days 5 & 6
+  // ─────────────────────────────────────────────
+  {
+    titleSlide: {
+      image:   'Slideshows/Day3/day3_00_title.jpeg',
+      title:   'God Created Animals',
+      verseEn: '"God created all kinds of animals." (Genesis 1:21)',
+      verseZh: '神造出各樣活物，各從其類。（創世記 1:21）',
+      vocab:   ['FISH','BIRD','SWIM','FILL','MULTIPLY','SING','FIVE','FIFTH','ANIMAL','WILD','CRAWL','IMAGE','MAN','RULE','SIX','SIXTH']
+    },
+    verseSlides: [
+            {
         ref:          'Genesis 1:20–23',
         image:        'Slideshows/Day3/Genesis_1-21.jpeg',
         keyEn:        'God made fish to swim in the water and birds to fly in the sky.',
@@ -264,7 +264,7 @@ const days = [
         vocab:        ['FISH','BIRD','SWIM'],
         keyOnlyVocab: ['SWIM']
       },
-      {
+            {
         ref:          'Genesis 1:20–23',
         image:        'Slideshows/Day3/Genesis_1-22-23.jpeg',
         keyEn:        '"Have babies!" He told them. "Fill the world with splashing and singing."',
@@ -274,7 +274,7 @@ const days = [
         vocab:        ['FILL','MULTIPLY','SING'],
         keyOnlyVocab: ['SING']
       },
-      {
+            {
         ref:          'Genesis 1:20–23',
         image:        'Slideshows/Day3/Genesis_1-22-23.jpeg',
         keyEn:        'Day Five! Done!',
@@ -283,23 +283,8 @@ const days = [
         verseZh:      '神說：「水要多多滋生有生命的物；要有雀鳥飛在地面以上，天空之中。」神就造出大魚和水中所滋生各樣有生命的動物，各從其類；又造出各樣飛鳥，各從其類。神看著是好的。神就賜福給這一切，說：「滋生繁多，充滿海中的水；雀鳥也要多生在地上。」有晚上，有早晨，是第五日。',
         vocab:        ['FIVE','FIFTH'],
         keyOnlyVocab: []
-      }
-    ]
-  },
-
-  // ─────────────────────────────────────────────
-  // LESSON 4
-  // ─────────────────────────────────────────────
-  {
-    titleSlide: {
-      image:   'Slideshows/Day4/day4_00_title.jpeg',
-      title:   'God Created People & the Sabbath',
-      verseEn: '"I am wonderfully made." (Psalm 139:14)',
-      verseZh: '我受造奇妙可畏。（詩篇 139:14）',
-      vocab:   ['ANIMAL','WILD','CRAWL','IMAGE','MAN','RULE','SIX','SIXTH','GOOD','MADE','EVERYTHING','REST','HOLY','FINISHED','SEVEN','SEVENTH']
-    },
-    verseSlides: [
-      {
+      },
+            {
         ref:          'Genesis 1:24–31',
         image:        'Slideshows/Day3/Genesis_1-24-25.jpeg',
         keyEn:        'Next, God made animals. He made farm animals, wild animals, and animals that crawl on the ground.',
@@ -309,7 +294,7 @@ const days = [
         vocab:        ['ANIMAL','WILD','CRAWL'],
         keyOnlyVocab: []
       },
-      {
+            {
         ref:          'Genesis 1:24–31',
         image:        'Slideshows/Day4/Genesis_1-28.jpeg',
         keyEn:        'So, in His image, God made man and woman. "Have babies," He said. "Take charge of the world." Care for the fish, the birds and the animals.',
@@ -319,7 +304,7 @@ const days = [
         vocab:        ['IMAGE','MAN','RULE'],
         keyOnlyVocab: []
       },
-      {
+            {
         ref:          'Genesis 1:24–31',
         image:        'Slideshows/Day4/Genesis_1-28.jpeg',
         keyEn:        'Day Six! Done!',
@@ -328,8 +313,23 @@ const days = [
         verseZh:      '神說：「地要生出活物來，各從其類；牲畜、昆蟲、野獸，各從其類。」事就這樣成了。於是神造出野獸，各從其類；牲畜，各從其類；地上一切昆蟲，各從其類。神看著是好的。神說：「我們要照著我們的形像、按著我們的樣式造人，使他們管理海裡的魚、空中的鳥、地上的牲畜，和全地，並地上所爬的一切昆蟲。」神就照著自己的形像造人，乃是照著他的形像造男造女。神就賜福給他們，又對他們說：「要生養眾多，遍滿地面，治理這地；也要管理海裡的魚、空中的鳥，和地上各樣行動的活物。」神說：「看哪，我將遍地上一切結種子的菜蔬和一切樹上所結有核的果子全賜給你們作食物。至於地上的走獸和空中的飛鳥，並各樣爬在地上有生命的物，我將青草賜給他們作食物。」事就這樣成了。神看著一切所造的都甚好。有晚上，有早晨，是第六日。',
         vocab:        ['SIX','SIXTH'],
         keyOnlyVocab: []
-      },
-      {
+      }
+    ]
+  },
+
+  // ─────────────────────────────────────────────
+  // LESSON 4 — Creation Day 7
+  // ─────────────────────────────────────────────
+  {
+    titleSlide: {
+      image:   'Slideshows/Day4/day4_00_title.jpeg',
+      title:   'God Created People & the Sabbath',
+      verseEn: '"I am wonderfully made." (Psalm 139:14)',
+      verseZh: '我受造奇妙可畏。（詩篇 139:14）',
+      vocab:   ['GOOD','MADE','EVERYTHING','REST','HOLY','FINISHED','SEVEN','SEVENTH']
+    },
+    verseSlides: [
+            {
         ref:          'Genesis 2:1–4',
         image:        'Slideshows/Day4/Genesis_2-1-2.jpeg',
         keyEn:        'Then God looked at everything He had made. "It\'s very good." He said.',
@@ -339,7 +339,7 @@ const days = [
         vocab:        ['GOOD','MADE','EVERYTHING'],
         keyOnlyVocab: []
       },
-      {
+            {
         ref:          'Genesis 2:1–4',
         image:        'Slideshows/Day4/Genesis_2-3.jpeg',
         keyEn:        'So on the seventh day He rested and made that day special.',
@@ -349,7 +349,7 @@ const days = [
         vocab:        ['REST','HOLY','FINISHED'],
         keyOnlyVocab: []
       },
-      {
+            {
         ref:          'Genesis 2:1–4',
         image:        'Slideshows/Day4/Genesis_2-3.jpeg',
         keyEn:        'Day Seven! Done!',
