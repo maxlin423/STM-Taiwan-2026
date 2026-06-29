@@ -1,4 +1,4 @@
-const VOCAB_COLORS = {
+var VOCAB_COLORS = {
   // Day 1 slides
   GOD:        '#f9c8d4',
   HEAVEN:     '#c8d4f9',
@@ -58,7 +58,7 @@ const VOCAB_COLORS = {
   SEVENTH:    '#d8e8f9'
 };
 
-const VOCAB_ZH = {
+var VOCAB_ZH = {
   GOD:        '神',
   HEAVEN:     '天',
   EARTH:      '地',
@@ -111,7 +111,7 @@ const VOCAB_ZH = {
   SEVENTH:    '第七'
 };
 
-const days = [
+var days = [
   // ─────────────────────────────────────────────
   // LESSON 1 — Creation Days 1 & 2
   // ─────────────────────────────────────────────

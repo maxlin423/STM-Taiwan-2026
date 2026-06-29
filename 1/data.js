@@ -1,4 +1,4 @@
-const VOCAB_COLORS = {
+var VOCAB_COLORS = {
   GOD:'#f9c8d4', LIGHT:'#fff3a3', DARK:'#c8d4f9', EVENING:'#f9d4c8',
   MORNING:'#c8f9e0', DAY:'#fde8a0', NIGHT:'#d4c8f9',
   LAND:'#d4f0c8', WATER:'#a3e4f9', SEAS:'#a3c8f9', TREE:'#b8f0c0',
@@ -8,7 +8,7 @@ const VOCAB_COLORS = {
   IMAGE:'#f9e0c8', RULE:'#c8d8f9', MADE:'#d8f9c8', REST:'#e8c8f9',
   HOLY:'#fff0a3', PEOPLE:'#f9c8c8', FINISH:'#c8f9f0'
 };
-const VOCAB_ZH = {
+var VOCAB_ZH = {
   GOD:'神', LIGHT:'光', DARK:'暗', EVENING:'晚上', MORNING:'早晨',
   DAY:'晝', NIGHT:'夜', LAND:'旱地', WATER:'水', SEAS:'海',
   TREE:'樹木', FRUIT:'果子', SEED:'種子', GOOD:'好',
@@ -21,7 +21,7 @@ const VOCAB_ZH = {
 // ─────────────────────────────────────────────
 // SLIDE DATA
 // ─────────────────────────────────────────────
-const days = [
+var days = [
   {
     titleSlide: {
       image: 'Slideshows/Day1/day1_00_title.jpeg',
