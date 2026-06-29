@@ -1,3 +1,5 @@
+var lessonPlanUrl = "1/lesson_plan.pdf";
+
 var VOCAB_COLORS = {
   GOD:'#f9c8d4', LIGHT:'#fff3a3', DARK:'#c8d4f9', EVENING:'#f9d4c8',
   MORNING:'#c8f9e0', DAY:'#fde8a0', NIGHT:'#d4c8f9',
@@ -25,7 +27,8 @@ var days = [
   {
     titleSlide: {
       image: 'Slideshows/Day1/day1_00_title.jpeg',
-      title: 'God Created Light and the Sky',
+      titleEn: 'God Created Light and the Sky',
+      titleZh: '神創造了光和天空',
       verseEn: '"In the beginning God created the heavens and the earth." (Genesis 1:1)',
       verseZh: '起初，神創造天地。（創世記 1:1）',
       vocab: ['GOD','LIGHT','DARK','EVENING','MORNING','DAY','NIGHT']
@@ -81,7 +84,8 @@ var days = [
   {
     titleSlide: {
       image: 'Slideshows/Day2/day2_00_title.jpeg',
-      title: 'God Created Land and Plants',
+      titleEn: 'God Created Land and Plants',
+      titleZh: '神創造了大地和植物',
       verseEn: '"God saw that it was good." (Genesis 1:10)',
       verseZh: '神看著是好的。（創世記 1:10）',
       vocab: ['LAND','WATER','SEAS','TREE','FRUIT','SEED','GOOD']
@@ -128,7 +132,8 @@ var days = [
   {
     titleSlide: {
       image: 'Slideshows/Day3/day3_00_title.jpeg',
-      title: 'God Created Animals',
+      titleEn: 'God Created Animals',
+      titleZh: '神創造了動物',
       verseEn: '"God created all kinds of animals." (Genesis 1:21)',
       verseZh: '神造出各樣活物，各從其類。（創世記 1:21）',
       vocab: ['FISH','BIRD','CREATURE','WILD','KINDS','LIVESTOCK','BLESSED']
@@ -175,7 +180,8 @@ var days = [
   {
     titleSlide: {
       image: 'Slideshows/Day4/day4_00_title.jpeg',
-      title: 'God Created People & the Sabbath',
+      titleEn: 'God Created People & the Sabbath',
+      titleZh: '神創造了人類和安息日',
       verseEn: '"I am wonderfully made." (Psalm 139:14)',
       verseZh: '我受造奇妙可畏。（詩篇 139:14）',
       vocab: ['IMAGE','RULE','MADE','REST','HOLY','PEOPLE','FINISH']

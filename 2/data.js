@@ -1,3 +1,5 @@
+var lessonPlanUrl = "2/lesson_plan.pdf";
+
 var VOCAB_COLORS = {
   // Day 1 slides
   GOD:        '#f9c8d4',
@@ -118,7 +120,8 @@ var days = [
   {
     titleSlide: {
       image:   'Slideshows/Day1/day1_00_title.jpeg',
-      title:   'God Created Light and the Sky',
+      titleEn: 'God Created Light and the Sky',
+      titleZh: '神創造了光和天空',
       verseEn: '"In the beginning God created the heavens and the earth." (Genesis 1:1)',
       verseZh: '起初，神創造天地。（創世記 1:1）',
       vocab:   ['GOD','HEAVEN','EARTH','LIGHT','DARK','NIGHT','ONE','FIRST','WATER','SKY','SEPARATE','TWO','SECOND']
@@ -183,7 +186,8 @@ var days = [
   {
     titleSlide: {
       image:   'Slideshows/Day2/day2_00_title.jpeg',
-      title:   'God Created Land and Plants',
+      titleEn: 'God Created Land and Plants',
+      titleZh: '神創造了大地和植物',
       verseEn: '"God saw that it was good." (Genesis 1:10)',
       verseZh: '神看著是好的。（創世記 1:10）',
       vocab:   ['LAND','SEAS','GROUND','PLANT','TREE','SEED','THREE','THIRD','SUN','MOON','STAR','FOUR','FOURTH']
@@ -243,15 +247,16 @@ var days = [
   },
 
   // ─────────────────────────────────────────────
-  // LESSON 3 — Creation Days 5 & 6
+  // LESSON 3 — Creation Day 5
   // ─────────────────────────────────────────────
   {
     titleSlide: {
       image:   'Slideshows/Day3/day3_00_title.jpeg',
-      title:   'God Created Animals',
+      titleEn: 'God Created Animals',
+      titleZh: '神創造了動物',
       verseEn: '"God created all kinds of animals." (Genesis 1:21)',
       verseZh: '神造出各樣活物，各從其類。（創世記 1:21）',
-      vocab:   ['FISH','BIRD','SWIM','FILL','MULTIPLY','SING','FIVE','FIFTH','ANIMAL','WILD','CRAWL','IMAGE','MAN','RULE','SIX','SIXTH']
+      vocab:   ['FISH','BIRD','SWIM','FILL','MULTIPLY','SING','FIVE','FIFTH']
     },
     verseSlides: [
             {
@@ -283,7 +288,23 @@ var days = [
         verseZh:      '神說：「水要多多滋生有生命的物；要有雀鳥飛在地面以上，天空之中。」神就造出大魚和水中所滋生各樣有生命的動物，各從其類；又造出各樣飛鳥，各從其類。神看著是好的。神就賜福給這一切，說：「滋生繁多，充滿海中的水；雀鳥也要多生在地上。」有晚上，有早晨，是第五日。',
         vocab:        ['FIVE','FIFTH'],
         keyOnlyVocab: []
-      },
+      }
+    ]
+  },
+
+  // ─────────────────────────────────────────────
+  // LESSON 4 — Creation Days 6 & 7
+  // ─────────────────────────────────────────────
+  {
+    titleSlide: {
+      image:   'Slideshows/Day4/day4_00_title.jpeg',
+      titleEn: 'God Created People & the Sabbath',
+      titleZh: '神創造了人類和安息日',
+      verseEn: '"I am wonderfully made." (Psalm 139:14)',
+      verseZh: '我受造奇妙可畏。（詩篇 139:14）',
+      vocab:   ['ANIMAL','WILD','CRAWL','IMAGE','MAN','RULE','SIX','SIXTH','GOOD','MADE','EVERYTHING','REST','HOLY','FINISHED','SEVEN','SEVENTH']
+    },
+    verseSlides: [
             {
         ref:          'Genesis 1:24–31',
         image:        'Slideshows/Day3/Genesis_1-24-25.jpeg',
@@ -313,22 +334,7 @@ var days = [
         verseZh:      '神說：「地要生出活物來，各從其類；牲畜、昆蟲、野獸，各從其類。」事就這樣成了。於是神造出野獸，各從其類；牲畜，各從其類；地上一切昆蟲，各從其類。神看著是好的。神說：「我們要照著我們的形像、按著我們的樣式造人，使他們管理海裡的魚、空中的鳥、地上的牲畜，和全地，並地上所爬的一切昆蟲。」神就照著自己的形像造人，乃是照著他的形像造男造女。神就賜福給他們，又對他們說：「要生養眾多，遍滿地面，治理這地；也要管理海裡的魚、空中的鳥，和地上各樣行動的活物。」神說：「看哪，我將遍地上一切結種子的菜蔬和一切樹上所結有核的果子全賜給你們作食物。至於地上的走獸和空中的飛鳥，並各樣爬在地上有生命的物，我將青草賜給他們作食物。」事就這樣成了。神看著一切所造的都甚好。有晚上，有早晨，是第六日。',
         vocab:        ['SIX','SIXTH'],
         keyOnlyVocab: []
-      }
-    ]
-  },
-
-  // ─────────────────────────────────────────────
-  // LESSON 4 — Creation Day 7
-  // ─────────────────────────────────────────────
-  {
-    titleSlide: {
-      image:   'Slideshows/Day4/day4_00_title.jpeg',
-      title:   'God Created People & the Sabbath',
-      verseEn: '"I am wonderfully made." (Psalm 139:14)',
-      verseZh: '我受造奇妙可畏。（詩篇 139:14）',
-      vocab:   ['GOOD','MADE','EVERYTHING','REST','HOLY','FINISHED','SEVEN','SEVENTH']
-    },
-    verseSlides: [
+      },
             {
         ref:          'Genesis 2:1–4',
         image:        'Slideshows/Day4/Genesis_2-1-2.jpeg',

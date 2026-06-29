@@ -31,13 +31,42 @@
   .slide.active { display: flex; flex-direction: column; }
 
   /* ── TITLE SLIDE ── */
-  .slide-title { justify-content: space-between; padding: 32px 40px 20px; }
+  .slide-title {
+    justify-content: space-between;
+    padding: 20px 40px 24px;
+    align-items: center;
+    text-align: center;
+    flex-direction: column;
+  }
+  .title-center {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+    flex: 1 1 auto;
+    justify-content: center;
+  }
   .title-day {
     font-family: 'Fredoka One', cursive;
     font-size: clamp(2rem, 5vw, 3.6rem);
     color: #fff;
     text-shadow: 2px 3px 8px rgba(0,0,0,0.7);
     line-height: 1.15;
+  }
+  .title-day-zh {
+    font-family: 'Noto Sans TC', sans-serif;
+    font-size: clamp(1.1rem, 2.8vw, 2rem);
+    color: #ffe;
+    font-weight: 700;
+    text-shadow: 2px 3px 8px rgba(0,0,0,0.7);
+    line-height: 1.2;
+    margin-top: 2px;
+  }
+  .title-heading {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
   }
   .title-verse-block {
     background: rgba(0,0,0,0.42);
@@ -327,10 +356,15 @@ function buildTitleSlide(s, idx) {
   div.dataset.slideIndex = idx;
   var vocabStr = d.vocab.map(function(w) { return w + ' ' + VOCAB_ZH[w]; }).join('  \u00b7  ');
   div.innerHTML =
-    '<div class="title-day">' + d.title + '</div>' +
-    '<div class="title-verse-block">' +
-      '<div class="title-verse-en">' + d.verseEn + '</div>' +
-      '<div class="title-verse-zh">' + d.verseZh + '</div>' +
+    '<div class="title-center">' +
+      '<div class="title-heading">' +
+        '<div class="title-day">' + (d.titleEn || d.title || '') + '</div>' +
+        '<div class="title-day-zh">' + (d.titleZh || '') + '</div>' +
+      '</div>' +
+      '<div class="title-verse-block">' +
+        '<div class="title-verse-en">' + d.verseEn + '</div>' +
+        '<div class="title-verse-zh">' + d.verseZh + '</div>' +
+      '</div>' +
     '</div>' +
     '<div class="title-vocab">' + vocabStr + '</div>';
   return div;
