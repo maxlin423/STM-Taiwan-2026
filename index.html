@@ -197,13 +197,23 @@ var checked = 0;
 // Cache of checked file URLs per version, keyed by filename
 var fileUrlCache = {};
 
+var isFileProtocol = (window.location.protocol === 'file:');
+
 function updateLinkBtn(v, btnId, filename) {
   var btn = document.getElementById(btnId);
   if (!btn) return;
   if (!v) { applyDocBtn(btn, null); return; }
-  var cacheKey = btnId + ':' + v;
-  if (fileUrlCache[cacheKey] !== undefined) { applyDocBtn(btn, fileUrlCache[cacheKey]); return; }
   var url = v + '/' + filename;
+  var cacheKey = btnId + ':' + v;
+
+  // fetch() HEAD requests are blocked under file://, so just enable the
+  // link directly and let the browser handle a missing file on click.
+  if (isFileProtocol) {
+    applyDocBtn(btn, url);
+    return;
+  }
+
+  if (fileUrlCache[cacheKey] !== undefined) { applyDocBtn(btn, fileUrlCache[cacheKey]); return; }
   fetch(url, { method: 'HEAD' })
     .then(function(res) {
       var resolved = res.ok ? url : null;
@@ -259,16 +269,22 @@ function buildDropdown() {
 }
 
 function checkVersion(v) {
-  // Use fetch to test if data.js exists for this version
-  fetch(v + '/data.js', { method: 'HEAD' })
-    .then(function(res) {
-      if (res.ok) found.push(v);
-    })
-    .catch(function() {})
-    .finally(function() {
-      checked++;
-      if (checked === maxVersion) buildDropdown();
-    });
+  // Use a dynamically injected <script> tag instead of fetch().
+  // fetch() is blocked under file:// protocol in most browsers, but
+  // <script src="..."> loading still works for local files.
+  var s = document.createElement('script');
+  s.src = v + '/data.js';
+  var done = false;
+  function finish(ok) {
+    if (done) return;
+    done = true;
+    if (ok) found.push(v);
+    checked++;
+    if (checked === maxVersion) buildDropdown();
+  }
+  s.onload = function() { finish(true); };
+  s.onerror = function() { finish(false); };
+  document.head.appendChild(s);
 }
 
 for (var i = 1; i <= maxVersion; i++) {
