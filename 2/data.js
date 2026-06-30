@@ -1,4 +1,5 @@
 var lessonPlanUrl = "2/lesson_plan.pdf";
+var wordPuzzleUrl = "2/word_puzzle.pdf";
 
 var VOCAB_COLORS = {
   // Day 1 slides

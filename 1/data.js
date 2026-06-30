@@ -1,4 +1,5 @@
 var lessonPlanUrl = "1/lesson_plan.pdf";
+var wordPuzzleUrl = "1/word_puzzle.pdf";
 
 var VOCAB_COLORS = {
   GOD:'#f9c8d4', LIGHT:'#fff3a3', DARK:'#c8d4f9', EVENING:'#f9d4c8',
